@@ -18,6 +18,17 @@
     Objetivo : Converte a leitura de cada sensor
                para uma medida física.
 
+    Cada conversão de leitura realizada pelo arduino dos sensores, será programa por um integrante do grupo.
+
+    Conversão para a uma unidade em Qualidade do ar
+	@Author : 
+    Conversão para a uma unidade em Vibração
+	@Author :
+    Conversão para a uma unidade em Pressão e Temperatura
+	@Author :
+    Conversão para a uma unidade em Luminosidade
+        @Author :
+
  */
 #include "Sensores.h"
 
