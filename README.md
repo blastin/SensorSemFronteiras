@@ -12,8 +12,8 @@ Mirella de Medeiros,
 Otavio Souza,
 Thiago Yuji,
 
-
 Objetivo : Prover enumeras informações sobre o ambiente, em tempo real para o usuário.
 
+Bibliotecas necessárias : MySQL	Connector/Arduino, Ethernet e SPI	
 
 wordpress : https://melhortrabalhoevarr.wordpress.com/
