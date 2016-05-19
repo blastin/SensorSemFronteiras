@@ -27,12 +27,39 @@
 
 #include "./classes/Sensores.h"
 
+Sensor * sensor_de_luminosidade;
+Sensor * sensor_de_qualidade_do_ar;
+Sensor * sensor_de_vibracao;
+Sensor * sensor_de_pressao_e_temperatura;
+
 void setup() {
-  // put your setup code here, to run once:
+
+  sensor_de_luminosidade          = new Luminosidade(A0);
+  sensor_de_qualidade_do_ar       = new Qualidade_do_ar(A1);
+  sensor_de_vibracao              = new Vibracao(A2);
+  sensor_de_pressao_e_temperatura = new Pressao_Temperatura(A3);
+  
+  Serial.begin(9600);
 
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
 
+  leitura(sensor_de_luminosidade);
+  leitura(sensor_de_qualidade_do_ar);
+  leitura(sensor_de_vibracao);
+  leitura(sensor_de_pressao_e_temperatura);
+  
+  delay(1 * 1000);
+  
 }
+
+inline
+void leitura(Sensor * sensor) {
+
+  sensor->setLeitura
+  (
+    analogRead(sensor->getPortaSensor())
+  );
+}
+

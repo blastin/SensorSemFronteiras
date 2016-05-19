@@ -25,7 +25,7 @@ class Sensor {
 public:
 
     explicit
-    Sensor() { }
+    Sensor(int porta) { this->porta = porta; }
 
     virtual void calcular_medida() = 0;
 
@@ -33,25 +33,38 @@ public:
         this->leitura = leitura;
     }
 
-    void setNomeDoSensor(char *nomeSensor) {
-        this->nomeSensor = nomeSensor;
+    int getLeitura(){
+	return leitura;
     }
 
-    float getMedia() {
+    float getMedida() {
         return medida;
     }
 
-protected:
+    int getPortaSensor(){
+	return porta;
+    }
+
+private:
+    int porta;
     int leitura;
+
+protected:
+
     float medida;
-    char *nomeSensor;
+    const char *nomeSensor;
+
+    void setNomeDoSensor(const char* nomeSensor) {
+	this->nomeSensor = nomeSensor;
+    }
+
 };
 
 class Qualidade_do_ar : public Sensor {
 
 public:
 
-    Qualidade_do_ar() { }
+    Qualidade_do_ar(int porta) : Sensor(porta) { setNomeDoSensor("Sensor de qualidade do ar"); }
 
     void calcular_medida();
 
@@ -61,7 +74,7 @@ class Vibracao : public Sensor {
 
 public:
 
-    Vibracao() { }
+    Vibracao(int porta) : Sensor(porta) { setNomeDoSensor("Sensor de vibração"); }
 
     void calcular_medida();
 };
@@ -70,7 +83,7 @@ class Pressao_Temperatura : public Sensor {
 
 public:
 
-    Pressao_Temperatura() { }
+    Pressao_Temperatura(int porta) : Sensor(porta) { setNomeDoSensor("Sensor de pressão e temperatura"); }
 
     void calcular_medida();
 
@@ -80,7 +93,7 @@ class Luminosidade : public Sensor {
 
 public:
 
-    Luminosidade() { }
+    Luminosidade(int porta) : Sensor(porta) { setNomeDoSensor("Sensor de luminosidade ambiente"); }
 
     void calcular_medida();
 
