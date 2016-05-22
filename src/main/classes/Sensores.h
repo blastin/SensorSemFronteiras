@@ -26,7 +26,7 @@ class SensorMySQL {
 
 public:
 
-    int leitura;
+    short leitura;
 
     SensorMySQL(int porta) { this->porta = porta; }
 
@@ -40,15 +40,14 @@ public:
 
 private:
     int porta;
-    char query[2<<7];
-
+    char query[2<<9];
 protected:
-    const char *nomeSensor;
+    const char * nomeSensor;
     const char * unidade_medida;
     const char * nomeTabela;
+    char  qualidade[2<<5];
     float medida;
 };
-
 
 class Qualidade_do_ar : public SensorMySQL {
 

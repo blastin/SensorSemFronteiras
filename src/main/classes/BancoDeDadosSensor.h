@@ -29,6 +29,5 @@ extern const char * TABELA_SENSOR_LUMINOSIDADE;
 extern const char * TABELA_SENSOR_QUALIDADE_AR;
 extern const char * TABELA_SENSOR_VIBRACOES;
 extern const char * TABELA_SENSOR_PRESSAO_TEMPERATURA;
-extern const char * DATABASE_NAME;
 
 #endif
