@@ -25,16 +25,17 @@
 /* Setup for Ethernet Library */
 byte mac_addr[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
 IPAddress server_addr(85, 10, 205, 173); // endereço do servidor db4free.net
+EthernetClient client;
 
 /* Setup for the Connector/Arduino */
-Connector connection; // The Connector/Arduino reference
+MySQL_Connection connection((Client *)&client);
 char user[] = "{nomedousuario}";
 char password[] = "{senhadousuario}";
 
-Sensor * sensor_de_luminosidade;
-Sensor * sensor_de_qualidade_do_ar;
-Sensor * sensor_de_vibracao;
-Sensor * sensor_de_pressao_e_temperatura;
+SensorMySQL * sensor_de_luminosidade;
+SensorMySQL * sensor_de_qualidade_do_ar;
+SensorMySQL * sensor_de_vibracao;
+SensorMySQL * sensor_de_pressao_e_temperatura;
 
 void setup() {
 
@@ -49,7 +50,7 @@ void setup() {
 
   Ethernet.begin(mac_addr);
 
-  if (connection.mysql_connect(server_addr, 3306, user, password)) {
+  if (connection.connect(server_addr, 3306, user, password)) {
     Serial.println("Connected!");
   } else {
     Serial.println("Connection failed.");
@@ -61,30 +62,51 @@ void loop() {
 
   digitalWrite(13, HIGH);
 
-    leitura(sensor_de_luminosidade);
-    leitura(sensor_de_qualidade_do_ar);
-    leitura(sensor_de_vibracao);
-    leitura(sensor_de_pressao_e_temperatura);
-  
-    converterParaMedida(sensor_de_luminosidade);
-    converterParaMedida(sensor_de_qualidade_do_ar);
-    converterParaMedida(sensor_de_vibracao);
-    converterParaMedida(sensor_de_pressao_e_temperatura);
+  leitura(sensor_de_luminosidade);
+  leitura(sensor_de_qualidade_do_ar);
+  leitura(sensor_de_vibracao);
+  leitura(sensor_de_pressao_e_temperatura);
+
+  converterParaMedida(sensor_de_luminosidade);
+  converterParaMedida(sensor_de_qualidade_do_ar);
+  converterParaMedida(sensor_de_vibracao);
+  converterParaMedida(sensor_de_pressao_e_temperatura);
+
+  criarQuery(sensor_de_luminosidade);
+  criarQuery(sensor_de_qualidade_do_ar);
+  criarQuery(sensor_de_vibracao);
+  criarQuery(sensor_de_pressao_e_temperatura);
+
+  insert(sensor_de_luminosidade);
+  insert(sensor_de_qualidade_do_ar);
+  insert(sensor_de_vibracao);
+  insert(sensor_de_pressao_e_temperatura);
 
   delay(1000);
 
   digitalWrite(13, LOW);
 
   delay(1000);
+
 }
 
 inline
-void leitura(Sensor * sensor) {
+void leitura(SensorMySQL * sensor) {
   sensor->leitura = analogRead(sensor->getPortaSensor());
 }
 
 inline
-void converterParaMedida(Sensor * sensor) {
+void converterParaMedida(SensorMySQL * sensor) {
   sensor->calcular_medida();
+}
+
+inline
+void insert(SensorMySQL * sensor) {
+  sensor->insert(connection);
+}
+
+inline
+void criarQuery(SensorMySQL * sensor) {
+  sensor->criarQuery();
 }
 

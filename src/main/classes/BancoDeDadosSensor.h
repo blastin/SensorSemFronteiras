@@ -25,11 +25,10 @@
 #include <MySQL_Connection.h>
 #include <MySQL_Cursor.h>
 
-
-const char * TABELA_SENSOR_LUMINOSIDADE = "Sensor_luminosidade_ambiente";
-const char * TABELA_SENSOR_QUALIDADE_AR = "Sensor_qualidade_do_ar";
-const char * TABELA_SENSOR_VIBRACOES = "Sensor_vibracoes";
-const char * TABELA_SENSOR_PRESSAO_TEMPERATURA = "Sensor_pressao_temperatura";
-const char * DATABASE_NAME = "{database}";
+extern const char * TABELA_SENSOR_LUMINOSIDADE;
+extern const char * TABELA_SENSOR_QUALIDADE_AR;
+extern const char * TABELA_SENSOR_VIBRACOES;
+extern const char * TABELA_SENSOR_PRESSAO_TEMPERATURA;
+extern const char * DATABASE_NAME;
 
 #endif

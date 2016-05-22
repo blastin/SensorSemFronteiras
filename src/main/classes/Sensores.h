@@ -20,27 +20,28 @@
 #ifndef SENSORES_CLASS_SENSORES_H
 #define SENSORES_CLASS_SENSORES_H
 
-class Sensor {
+#include "./BancoDeDadosSensor.h"
+
+class SensorMySQL {
 
 public:
 
     int leitura;
 
-    explicit
-    Sensor(int porta) { this->porta = porta; }
+    SensorMySQL(int porta) { this->porta = porta; }
+
+    int getPortaSensor(){ return porta; }
 
     virtual void calcular_medida() = 0;
 
-    void criar_query();
-    bool insert();
+    void criarQuery();
 
-    int getPortaSensor(){
-	return porta;
-    }
+    bool insert(MySQL_Connection& connector);
 
 private:
     int porta;
-    
+    char query[2<<7];
+
 protected:
     const char *nomeSensor;
     const char * unidade_medida;
@@ -48,11 +49,12 @@ protected:
     float medida;
 };
 
-class Qualidade_do_ar : public Sensor {
+
+class Qualidade_do_ar : public SensorMySQL {
 
 public:
 
-    Qualidade_do_ar(int porta, const char * nomeTabela) : Sensor(porta) {
+    Qualidade_do_ar(int porta, const char * nomeTabela) : SensorMySQL(porta) {
 
 	nomeSensor = "Sensor de qualidade do ar"; 
 	unidade_medida = "{unidade}"; 
@@ -65,11 +67,11 @@ public:
 
 };
 
-class Vibracao : public Sensor {
+class Vibracao : public SensorMySQL {
 
 public:
 
-    Vibracao(int porta, const char * nomeTabela) : Sensor(porta){
+    Vibracao(int porta, const char * nomeTabela) : SensorMySQL(porta){
 
 	nomeSensor = "Sensor de vibração"; 
 	unidade_medida = "{unidade}"; 
@@ -81,11 +83,11 @@ public:
     void calcular_medida();
 };
 
-class Pressao_Temperatura : public Sensor {
+class Pressao_Temperatura : public SensorMySQL {
 
 public:
 
-    Pressao_Temperatura(int porta, const char * nomeTabela) : Sensor(porta) {
+    Pressao_Temperatura(int porta, const char * nomeTabela) : SensorMySQL(porta) {
 
 	nomeSensor = "Sensor de pressão e temperatura"; 
 	unidade_medida = "{unidade}"; 
@@ -98,11 +100,11 @@ public:
 
 };
 
-class Luminosidade : public Sensor {
+class Luminosidade : public SensorMySQL {
 
 public:
 
-    Luminosidade(int porta, const char * nomeTabela) : Sensor(porta) {
+    Luminosidade(int porta, const char * nomeTabela) : SensorMySQL(porta) {
 	
 	nomeSensor = "Sensor de luminosidade ambiente"; 
 	unidade_medida = "{unidade}";

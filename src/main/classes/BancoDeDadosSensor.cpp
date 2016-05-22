@@ -1,3 +1,4 @@
+
 /*
  * BancoDeDadosSensor.ino
     Copyright (C) <2016>  <Jeff>
@@ -17,12 +18,41 @@
 
  */
 
+#include "./Sensores.h"
 #include "./BancoDeDadosSensor.h"
 
-void Sensor::criar_query(){
+const char * TABELA_SENSOR_LUMINOSIDADE = "Sensor_luminosidade_ambiente";
+const char * TABELA_SENSOR_QUALIDADE_AR = "Sensor_qualidade_do_ar";
+const char * TABELA_SENSOR_VIBRACOES = "Sensor_vibracoes";
+const char * TABELA_SENSOR_PRESSAO_TEMPERATURA = "Sensor_pressao_temperatura";
+const char * DATABASE_NAME = "{database}";
+
+void SensorMySQL::criarQuery(){
+
+/*
+	Generic Tabela:
+
+		nome   : nome do sensor
+		medida : medida calculada do sensor
+		unidade: unidade da medida
+		qualidade : Caso haja alguma informação sobre o ambiente, será inserido aqui.
+	
+*/
+
 
 }
 
-bool Sensor::insert(){
+bool SensorMySQL::insert(MySQL_Connection& connector) {
 
+	// Initiate the query class instance
+	MySQL_Cursor *cur_mem = new MySQL_Cursor(&connector);
+
+	// Execute the query
+	cur_mem->execute(query);
+
+	// Note: since there are no results, we do not need to read any data
+	// Deleting the cursor also frees up memory used
+	delete cur_mem;
+
+	return true;
 }
