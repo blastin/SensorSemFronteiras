@@ -24,22 +24,14 @@ class Sensor {
 
 public:
 
+    int leitura;
+
     explicit
     Sensor(int porta) { this->porta = porta; }
 
     virtual void calcular_medida() = 0;
 
-    void setLeitura(int leitura) {
-        this->leitura = leitura;
-    }
-
-    int getLeitura(){
-	return leitura;
-    }
-
-    float getMedida() {
-        return medida;
-    }
+    void criar_query();
 
     int getPortaSensor(){
 	return porta;
@@ -47,24 +39,26 @@ public:
 
 private:
     int porta;
-    int leitura;
-
+    
 protected:
-
-    float medida;
     const char *nomeSensor;
-
-    void setNomeDoSensor(const char* nomeSensor) {
-	this->nomeSensor = nomeSensor;
-    }
-
+    const char * unidade_medida;
+    const char * nomeTabela;
+    float medida;
 };
 
 class Qualidade_do_ar : public Sensor {
 
 public:
 
-    Qualidade_do_ar(int porta) : Sensor(porta) { setNomeDoSensor("Sensor de qualidade do ar"); }
+    Qualidade_do_ar(int porta, const char * nomeTabela) : Sensor(porta) {
+
+	nomeSensor = "Sensor de qualidade do ar"; 
+	unidade_medida = "{unidade}"; 
+
+	this->nomeTabela = nomeTabela;
+
+	}
 
     void calcular_medida();
 
@@ -74,7 +68,14 @@ class Vibracao : public Sensor {
 
 public:
 
-    Vibracao(int porta) : Sensor(porta) { setNomeDoSensor("Sensor de vibração"); }
+    Vibracao(int porta, const char * nomeTabela) : Sensor(porta){
+
+	nomeSensor = "Sensor de vibração"; 
+	unidade_medida = "{unidade}"; 
+
+	this->nomeTabela = nomeTabela;
+
+	}
 
     void calcular_medida();
 };
@@ -83,7 +84,14 @@ class Pressao_Temperatura : public Sensor {
 
 public:
 
-    Pressao_Temperatura(int porta) : Sensor(porta) { setNomeDoSensor("Sensor de pressão e temperatura"); }
+    Pressao_Temperatura(int porta, const char * nomeTabela) : Sensor(porta) {
+
+	nomeSensor = "Sensor de pressão e temperatura"; 
+	unidade_medida = "{unidade}"; 
+
+	this->nomeTabela = nomeTabela;
+
+	}
 
     void calcular_medida();
 
@@ -93,7 +101,14 @@ class Luminosidade : public Sensor {
 
 public:
 
-    Luminosidade(int porta) : Sensor(porta) { setNomeDoSensor("Sensor de luminosidade ambiente"); }
+    Luminosidade(int porta, const char * nomeTabela) : Sensor(porta) {
+	
+	nomeSensor = "Sensor de luminosidade ambiente"; 
+	unidade_medida = "{unidade}";
+
+	this->nomeTabela = nomeTabela;
+
+	}
 
     void calcular_medida();
 

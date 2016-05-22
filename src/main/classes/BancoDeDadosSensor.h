@@ -1,5 +1,5 @@
 /*
- * Sensores.cpp
+ * BancoDeDadosSensor.h
     Copyright (C) <2016>  <Jeff>
 
     This program is free software: you can redistribute it and/or modify
@@ -15,31 +15,34 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-    Objetivo : Converte a leitura de cada sensor
-               para uma medida física.
-
-    Cada conversão de leitura realizada pelo arduino dos sensores, será programa por um integrante do grupo.
-
-    Conversão para a uma unidade em Qualidade do ar
-	@Author : 
-    Conversão para a uma unidade em Vibração
-	@Author :
-    Conversão para a uma unidade em Pressão e Temperatura
-	@Author :
-    Conversão para a uma unidade em Luminosidade
-        @Author :
-
  */
-#include "./Sensores.h"
 
-void Qualidade_do_ar::calcular_medida() {
-}
+#ifndef BANCODEDADOS_CLASS_SENSORES_H
+#define BANCODEDADOS_CLASS_SENSORES_H
 
-void Vibracao::calcular_medida() {
-}
+#include <MySQL_Encrypt_Sha1.h>
+#include <MySQL_Packet.h>
+#include <MySQL_Connection.h>
+#include <MySQL_Cursor.h>
 
-void Pressao_Temperatura::calcular_medida() {
-}
+const char * TABELA_SENSOR_LUMINOSIDADE = "Sensor_luminosidade_ambiente";
+const char * TABELA_SENSOR_QUALIDADE_AR = "Sensor_qualidade_do_ar";
+const char * TABELA_SENSOR_VIBRACOES = "Sensor_vibracoes";
+const char * TABELA_SENSOR_PRESSAO_TEMPERATURA = "Sensor_pressao_temperatura";
 
-void Luminosidade::calcular_medida() {
-}
+class Sensor;
+
+class BancoDeDadosSensor {
+
+public:
+
+	BancoDeDadosSensor(String database_name);
+
+	bool insert(Sensor * sensor);
+
+private:
+	String database_name;
+	String INSERT_SQL;
+
+};
+#endif

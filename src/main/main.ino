@@ -1,4 +1,5 @@
 
+
 /*
     This file is part of S.S.F.
 
@@ -20,12 +21,8 @@
 #include <SPI.h>
 #include <Ethernet.h>
 
-#include <MySQL_Encrypt_Sha1.h>
-#include <MySQL_Packet.h>
-#include <MySQL_Connection.h>
-#include <MySQL_Cursor.h>
-
 #include "./classes/Sensores.h"
+#include "./classes/BancoDeDadosSensor.h"
 
 Sensor * sensor_de_luminosidade;
 Sensor * sensor_de_qualidade_do_ar;
@@ -33,33 +30,46 @@ Sensor * sensor_de_vibracao;
 Sensor * sensor_de_pressao_e_temperatura;
 
 void setup() {
-
-  sensor_de_luminosidade          = new Luminosidade(A0);
-  sensor_de_qualidade_do_ar       = new Qualidade_do_ar(A1);
-  sensor_de_vibracao              = new Vibracao(A2);
-  sensor_de_pressao_e_temperatura = new Pressao_Temperatura(A3);
   
+  sensor_de_luminosidade          = new Luminosidade(A0,TABELA_SENSOR_LUMINOSIDADE);
+  sensor_de_qualidade_do_ar       = new Qualidade_do_ar(A1,TABELA_SENSOR_QUALIDADE_AR);
+  sensor_de_vibracao              = new Vibracao(A2,TABELA_SENSOR_VIBRACOES);
+  sensor_de_pressao_e_temperatura = new Pressao_Temperatura(A3,TABELA_SENSOR_PRESSAO_TEMPERATURA);
+
   Serial.begin(9600);
+
+  pinMode(13, OUTPUT);
 
 }
 
 void loop() {
 
+  digitalWrite(13, HIGH);
+
   leitura(sensor_de_luminosidade);
   leitura(sensor_de_qualidade_do_ar);
   leitura(sensor_de_vibracao);
   leitura(sensor_de_pressao_e_temperatura);
-  
-  delay(1 * 1000);
-  
+
+  converterParaMedida(sensor_de_luminosidade);
+  converterParaMedida(sensor_de_qualidade_do_ar);
+  converterParaMedida(sensor_de_vibracao);
+  converterParaMedida(sensor_de_pressao_e_temperatura);
+
+  delay(1000);
+
+  digitalWrite(13, LOW);
+
+  delay(1000);
 }
 
 inline
 void leitura(Sensor * sensor) {
+  sensor->leitura = analogRead(sensor->getPortaSensor());
+}
 
-  sensor->setLeitura
-  (
-    analogRead(sensor->getPortaSensor())
-  );
+inline
+void converterParaMedida(Sensor * sensor) {
+  sensor->calcular_medida();
 }
 

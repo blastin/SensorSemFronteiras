@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS `Sensor_pressao_temperatura` (
   `id` int(11) NOT NULL,
   `nome` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `medida` float NOT NULL,
+  `unidade_medida` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `qualidade` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
