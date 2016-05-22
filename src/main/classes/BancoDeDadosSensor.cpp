@@ -23,6 +23,6 @@ void Sensor::criar_query(){
 
 }
 
-bool BancoDeDadosSensor::insert(Sensor * sensor){
+bool Sensor::insert(){
 
 }

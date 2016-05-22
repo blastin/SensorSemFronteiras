@@ -32,6 +32,7 @@ public:
     virtual void calcular_medida() = 0;
 
     void criar_query();
+    bool insert();
 
     int getPortaSensor(){
 	return porta;
