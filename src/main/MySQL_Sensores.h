@@ -1,4 +1,20 @@
 
+/*
+    This file is part of S.S.F.
+    This S.S.F is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+    @author inclusões : Jefferson Lisboa.
+
+*/
 
 #ifndef MySQL_SENSOR_CLASSE_H
 #define MySQL_SENSOR_CLASSE_H
@@ -7,12 +23,6 @@
 #include <MySQL_Packet.h>
 #include <MySQL_Connection.h>
 #include <MySQL_Cursor.h>
-
-const String DATABASE_NAME = "{database}";
-const String TABELA_SENSOR_LUMINOSIDADE = "Sensor_luminosidade_ambiente";
-const String TABELA_SENSOR_QUALIDADE_AR = "Sensor_qualidade_do_ar";
-const String TABELA_SENSOR_VIBRACOES = "Sensor_vibracoes";
-const String TABELA_SENSOR_PRESSAO_TEMPERATURA = "Sensor_pressao_temperatura";
 
 #endif
 
