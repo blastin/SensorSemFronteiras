@@ -31,7 +31,7 @@ class Sensor {
       this->porta = porta;
     }
 
-    virtual void medir() = 0;
+    virtual void construirInformacoes() = 0;
 
     void construirQuery();
 

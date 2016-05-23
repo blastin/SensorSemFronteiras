@@ -33,16 +33,14 @@ char user[]     = "{nomedousuario}";
 char password[] = "{senhadousuario}";
 
 Sensor * luminosidade;
-//Sensor * qualidadeDoAr;
-//Sensor * pressaoTemperatura;
-//Sensor * vibracao;
+Sensor * qualidadeDoAr;
+Sensor * pressaoTemperatura;
+Sensor * vibracao;
 
 void setup() {
 
   // initialize serial communication at 9600 bits per second:
   Serial.begin(9600);
-
-  pinMode(13, OUTPUT);
 
   Ethernet.begin(mac_addr);
 
@@ -51,62 +49,60 @@ void setup() {
   } else {
     Serial.println(F("Connection failed."));
   }
-  
+
   luminosidade        = new Luminosidade(A0);
-  //qualidadeDoAr       = new QualidadeDoAr(A1, &TABELA_SENSOR_QUALIDADE_AR);
-  //pressaoTemperatura  = new PressaoTemperatura(A2, &TABELA_SENSOR_PRESSAO_TEMPERATURA);
-  //vibracao            = new Vibracao(A3, &TABELA_SENSOR_VIBRACOES);
+  qualidadeDoAr       = new QualidadeDoAr(A1);
+  pressaoTemperatura  = new PressaoTemperatura(A2);
+  vibracao            = new Vibracao(A3);
 
 }
 
 void loop() {
 
-  digitalWrite(13, HIGH);
+  /*Leitura analógica de cada sensor.*/
+  AnalogRead(luminosidade);
+  AnalogRead(qualidadeDoAr);
+  AnalogRead(pressaoTemperatura);
+  AnalogRead(vibracao);
 
-  // read the input on analog pin 0:
-  leitura(luminosidade);
-  //leitura(qualidadeDoAr);
-  //leitura(pressaoTemperatura);
-  //leitura(vibracao);
-
-  //Calcular medida
-  medir(luminosidade);
-  //medir(qualidadeDoAr);
-  //medir(pressaoTemperatura);
-  //medir(vibracao);
-
-
-  //Gerar Query
-  criarQuery(luminosidade);
-  //criarQuery(qualidadeDoAr);
-  //criarQuery(pressaoTemperatura);
-  //criarQuery(vibracao);
+  /* Calcular medida,
+     especificar unidade
+     detalhar informações adicionais do ambiente
+  */
+  construirInformacoes(luminosidade);
+  construirInformacoes(qualidadeDoAr);
+  construirInformacoes(pressaoTemperatura);
+  construirInformacoes(vibracao);
 
 
-  //Insert Query
-  //insertMySQL(luminosidade);
-  //insertMySQL(qualidadeDoAr);
-  //insertMySQL(pressaoTemperatura);
-  //insertMySQL(vibracao);
+  /*
+     Gerar String formatada para a biblioteca MySQL inserir no banco de dados.
+  */
+  gerenciarQuery(luminosidade);
+  gerenciarQuery(qualidadeDoAr);
+  gerenciarQuery(pressaoTemperatura);
+  gerenciarQuery(vibracao);
 
+  /* Armazenar informações do sensor no banco de dados */
+  insertMySQL(luminosidade);
+  insertMySQL(qualidadeDoAr);
+  insertMySQL(pressaoTemperatura);
+  insertMySQL(vibracao);
 
-  delay(1000);
-
-  digitalWrite(13, LOW);
-
-  delay(1000);
+  delay(3000);
 
 }
 
-void leitura(Sensor * sensor) {
+void AnalogRead(Sensor * sensor) {
+  // read the input on analog pin N:
   sensor->setLeitura(analogRead(sensor->getPorta()));
 }
 
-void medir(Sensor * sensor) {
-  sensor->medir();
+void construirInformacoes(Sensor * sensor) {
+  sensor->construirInformacoes();
 }
 
-void criarQuery(Sensor * sensor) {
+void gerenciarQuery(Sensor * sensor) {
   sensor->construirQuery();
 }
 

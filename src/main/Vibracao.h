@@ -28,13 +28,13 @@ class Vibracao: public Sensor {
     Vibracao(int porta) :
       Sensor(porta) {
 
-      nomeTabela = "SensorVibrc";;
+      nomeTabela = F("SensorVibrc");
 
-      nomeSensor = "Vibrações";
-
+      nomeSensor = F("Vibrações");
+      
     }
 
-    void medir();
+    void construirInformacoes();
 
 };
 

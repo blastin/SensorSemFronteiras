@@ -19,7 +19,7 @@
 
 #include "Vibracao.h"
 
-void Vibracao::medir() {
+void Vibracao::construirInformacoes() {
 
 }
 

@@ -19,7 +19,7 @@
 
 #include "Luminosidade.h"
 
-void Luminosidade::medir() {
+void Luminosidade::construirInformacoes() {
 
   //TODO: O código abaixo é apenas um exemplo.
   medida = leitura * (5.0 / 1023.0);

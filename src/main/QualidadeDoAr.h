@@ -28,13 +28,13 @@ class QualidadeDoAr: public Sensor {
     QualidadeDoAr(int porta) :
       Sensor(porta) {
 
-      nomeTabela = "SensorQuAr";
+      nomeTabela = F("SensorQuAr");
 
-      nomeSensor = "Qualidade do Ar";
+      nomeSensor = F("Qualidade do Ar");
 
     }
 
-    void medir();
+    void construirInformacoes();
 
 };
 

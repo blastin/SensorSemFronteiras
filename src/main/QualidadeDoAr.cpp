@@ -19,7 +19,7 @@
 
 #include "QualidadeDoAr.h"
 
-void QualidadeDoAr::medir() {
+void QualidadeDoAr::construirInformacoes() {
   
 }
 

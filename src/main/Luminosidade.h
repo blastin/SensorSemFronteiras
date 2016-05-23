@@ -28,13 +28,13 @@ class Luminosidade: public Sensor {
     Luminosidade(int porta) :
       Sensor(porta) {
 
-      nomeTabela = "SensorLumi";
+      nomeTabela = F("SensorLumi");
 
-      nomeSensor = "luminosidade";
+      nomeSensor = F("luminosidade");
 
     }
 
-    void medir();
+    void construirInformacoes();
     
 };
 

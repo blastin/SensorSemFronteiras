@@ -28,13 +28,13 @@ class PressaoTemperatura: public Sensor {
     PressaoTemperatura(int porta) :
       Sensor(porta) {
 
-      nomeTabela = "SensorPreTep";
+      nomeTabela = F("SensorPreTep");
 
-      nomeSensor = "Pressão e Temperatura";
+      nomeSensor = F("Pressão e Temperatura");
 
     }
 
-    void medir();
+    void construirInformacoes();
 
 };
 

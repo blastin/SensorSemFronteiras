@@ -19,7 +19,7 @@
 
 #include "PressaoTemperatura.h"
 
-void PressaoTemperatura::medir() {
+void PressaoTemperatura::construirInformacoes() {
   
 }
 
