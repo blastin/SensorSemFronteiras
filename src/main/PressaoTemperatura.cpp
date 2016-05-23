@@ -17,9 +17,9 @@
 
 */
 
-#include "Luminosidade.h"
+#include "PressaoTemperatura.h"
 
-void Luminosidade::medir() {
+void PressaoTemperatura::medir() {
 
   //TODO: O código abaixo é apenas um exemplo.
   medida = leitura * (5.0 / 1023.0);

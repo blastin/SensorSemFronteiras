@@ -13,22 +13,32 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     @author Modelo Abstrato : Jefferson Lisboa.
-    @author Medida do sensor:
 
 */
 
-#include "Luminosidade.h"
+#ifndef SENSOR_PRESSAO_TEMPERATURA_CLASSE_H
+#define SENSOR_PRESSAO_TEMPERATURA_CLASSE_H
 
-void Luminosidade::medir() {
+#include "Sensor.h"
 
-  //TODO: O código abaixo é apenas um exemplo.
-  medida = leitura * (5.0 / 1023.0);
+class PressaoTemperatura: public Sensor {
 
-  qualidade = "boa luminosidade";
+  public:
 
-  unidadeMedida = "lux";
+    PressaoTemperatura(int porta, String nomeTabela) :
+      Sensor(porta) {
 
-}
+      this->nomeTabela = nomeTabela;
+
+      nomeSensor = "Pressão e Temperatura";
+
+    }
+
+    void medir();
+
+};
+
+#endif
 
 
 

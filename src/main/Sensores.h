@@ -12,23 +12,16 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-    @author Modelo Abstrato : Jefferson Lisboa.
-    @author Medida do sensor:
+    @author abstração e modelagem : Jefferson Lisboa.
 
 */
 
-#include "Luminosidade.h"
+#ifndef SENSORES_INCLUDE_H
+#define SENSORES_INCLUDE_H
 
-void Luminosidade::medir() {
+#include "./Luminosidade.h"
+#include "./PressaoTemperatura.h"
+#include "./QualidadeDoAr.h"
+#include "./Vibracao.h"
 
-  //TODO: O código abaixo é apenas um exemplo.
-  medida = leitura * (5.0 / 1023.0);
-
-  qualidade = "boa luminosidade";
-
-  unidadeMedida = "lux";
-
-}
-
-
-
+#endif

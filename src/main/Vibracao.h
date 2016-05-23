@@ -13,22 +13,32 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     @author Modelo Abstrato : Jefferson Lisboa.
-    @author Medida do sensor:
 
 */
 
-#include "Luminosidade.h"
+#ifndef SENSOR_VIBRACAO_CLASSE_H
+#define SENSOR_VIBRACAO_CLASSE_H
 
-void Luminosidade::medir() {
+#include "Sensor.h"
 
-  //TODO: O código abaixo é apenas um exemplo.
-  medida = leitura * (5.0 / 1023.0);
+class Vibracao: public Sensor {
 
-  qualidade = "boa luminosidade";
+  public:
 
-  unidadeMedida = "lux";
+    Vibracao(int porta, String nomeTabela) :
+      Sensor(porta) {
 
-}
+      this->nomeTabela = nomeTabela;
+
+      nomeSensor = "Vibrações";
+
+    }
+
+    void medir();
+
+};
+
+#endif
 
 
 

@@ -16,9 +16,11 @@
 
 */
 
-#include "./Luminosidade.h"
-#include "./MySQL_Sensores.h"
+#include <SPI.h>
+#include <Ethernet.h>
 
+#include "./MySQL_Sensores.h"
+#include "./Sensores.h"
 
 const String TABELA_SENSOR_LUMINOSIDADE = "Sensor_luminosidade_ambiente";
 const String TABELA_SENSOR_QUALIDADE_AR = "Sensor_qualidade_do_ar";
@@ -37,6 +39,9 @@ char user[]     = "{nomedousuario}";
 char password[] = "{senhadousuario}";
 
 Sensor * luminosidade;
+Sensor * qualidadeDoAr;
+Sensor * pressaoTemperatura;
+Sensor * vibracao;
 
 void setup() {
 
@@ -53,7 +58,10 @@ void setup() {
     Serial.println("Connection failed.");
   }
 
-  luminosidade = new Luminosidade(A0, TABELA_SENSOR_LUMINOSIDADE);
+  luminosidade        = new Luminosidade(A0, TABELA_SENSOR_LUMINOSIDADE);
+  qualidadeDoAr       = new QualidadeDoAr(A1, TABELA_SENSOR_QUALIDADE_AR);
+  pressaoTemperatura  = new PressaoTemperatura(A2, TABELA_SENSOR_PRESSAO_TEMPERATURA);
+  vibracao            = new Vibracao(A3, TABELA_SENSOR_VIBRACOES);
 
 }
 
@@ -63,15 +71,30 @@ void loop() {
 
   // read the input on analog pin 0:
   leitura(luminosidade);
+  leitura(qualidadeDoAr);
+  leitura(pressaoTemperatura);
+  leitura(vibracao);
 
   //Calcular medida
   medir(luminosidade);
+  medir(qualidadeDoAr);
+  medir(pressaoTemperatura);
+  medir(vibracao);
+
 
   //Gerar Query
   criarQuery(luminosidade);
+  criarQuery(qualidadeDoAr);
+  criarQuery(pressaoTemperatura);
+  criarQuery(vibracao);
+
 
   //Insert Query
   //insertMySQL(luminosidade);
+  //insertMySQL(qualidadeDoAr);
+  //insertMySQL(pressaoTemperatura);
+  //insertMySQL(vibracao);
+
 
   delay(1000);
 
