@@ -1,26 +1,6 @@
-/*
-    This file is part of S.S.F.
 
-    This S.S.F is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-*/
-
-#include <SPI.h>
-#include <Ethernet.h>
-
-#include "./classes/Sensores.h"
-#include "./classes/BancoDeDadosSensor.h"
+#include "./Luminosidade.h"
+#include "./MySQL_Sensores.h"
 
 /* Setup for Ethernet Library */
 byte mac_addr[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
@@ -29,24 +9,15 @@ EthernetClient client;
 
 /* Setup for the Connector/Arduino */
 MySQL_Connection connection((Client *)&client);
-char user[] = "{nomedousuario}";
+char user[]     = "{nomedousuario}";
 char password[] = "{senhadousuario}";
 
-SensorMySQL * sensor_de_luminosidade;
-SensorMySQL * sensor_de_qualidade_do_ar;
-SensorMySQL * sensor_de_vibracao;
-SensorMySQL * sensor_de_pressao_e_temperatura;
+Sensor * luminosidade;
 
 void setup() {
 
-  sensor_de_luminosidade          = new Luminosidade(A0, TABELA_SENSOR_LUMINOSIDADE);
-  sensor_de_qualidade_do_ar       = new Qualidade_do_ar(A1, TABELA_SENSOR_QUALIDADE_AR);
-  sensor_de_vibracao              = new Vibracao(A2, TABELA_SENSOR_VIBRACOES);
-  sensor_de_pressao_e_temperatura = new Pressao_Temperatura(A3, TABELA_SENSOR_PRESSAO_TEMPERATURA);
-
+  // initialize serial communication at 9600 bits per second:
   Serial.begin(9600);
-
-  pinMode(13, OUTPUT);
 
   Ethernet.begin(mac_addr);
 
@@ -56,57 +27,41 @@ void setup() {
     Serial.println("Connection failed.");
   }
 
+  luminosidade = new Luminosidade(A0, TABELA_SENSOR_LUMINOSIDADE);
+
 }
 
 void loop() {
 
-  digitalWrite(13, HIGH);
+  // read the input on analog pin 0:
+  leitura(luminosidade);
 
-  leitura(sensor_de_luminosidade);
-  leitura(sensor_de_qualidade_do_ar);
-  leitura(sensor_de_vibracao);
-  leitura(sensor_de_pressao_e_temperatura);
+  //Calcular medida
+  medir(luminosidade);
 
-  converterParaMedida(sensor_de_luminosidade);
-  converterParaMedida(sensor_de_qualidade_do_ar);
-  converterParaMedida(sensor_de_vibracao);
-  converterParaMedida(sensor_de_pressao_e_temperatura);
+  //Gerar Query
+  gerarQuery(luminosidade);
 
-  criarQuery(sensor_de_luminosidade);
-  criarQuery(sensor_de_qualidade_do_ar);
-  criarQuery(sensor_de_vibracao);
-  criarQuery(sensor_de_pressao_e_temperatura);
+  //Insert Query
+  insertMySQL(luminosidade);
 
-  insert(sensor_de_luminosidade);
-  insert(sensor_de_qualidade_do_ar);
-  insert(sensor_de_vibracao);
-  insert(sensor_de_pressao_e_temperatura);
-
-  delay(1000);
-
-  digitalWrite(13, LOW);
-
-  delay(1000);
+  delay(2000);
 
 }
 
-inline
-void leitura(SensorMySQL * sensor) {
-  sensor->leitura = analogRead(sensor->getPortaSensor());
+void leitura(Sensor * sensor) {
+  sensor->setLeitura(analogRead(sensor->getPorta()));
 }
 
-inline
-void converterParaMedida(SensorMySQL * sensor) {
-  sensor->calcular_medida();
+void medir(Sensor * sensor) {
+  sensor->medir();
 }
 
-inline
-void insert(SensorMySQL * sensor) {
-  sensor->insert(connection);
+void gerarQuery(Sensor * sensor) {
+  sensor->construirQuery();
 }
 
-inline
-void criarQuery(SensorMySQL * sensor) {
-  sensor->criarQuery();
+void insertMySQL(Sensor * sensor) {
+  sensor->insertMySql(connection);
 }
 
