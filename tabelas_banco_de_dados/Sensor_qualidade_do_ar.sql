@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 -- Estrutura da tabela `Sensor_qualidade_ar`
 --
 
-CREATE TABLE IF NOT EXISTS `Sensor_qualidade_ar` (
+CREATE TABLE IF NOT EXISTS `SensorQuAr` (
   `id` int(11) NOT NULL,
   `nome` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `medida` float NOT NULL,

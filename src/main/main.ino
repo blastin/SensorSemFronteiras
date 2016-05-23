@@ -22,12 +22,6 @@
 #include "./MySQL_Sensores.h"
 #include "./Sensores.h"
 
-const String TABELA_SENSOR_LUMINOSIDADE = "Sensor_luminosidade_ambiente";
-const String TABELA_SENSOR_QUALIDADE_AR = "Sensor_qualidade_do_ar";
-const String TABELA_SENSOR_VIBRACOES = "Sensor_vibracoes";
-const String TABELA_SENSOR_PRESSAO_TEMPERATURA = "Sensor_pressao_temperatura";
-const String DATABASE_NAME = "{database}";
-
 /* Setup for Ethernet Library */
 byte mac_addr[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
 IPAddress server_addr(85, 10, 205, 173); // endereço do servidor db4free.net
@@ -39,9 +33,9 @@ char user[]     = "{nomedousuario}";
 char password[] = "{senhadousuario}";
 
 Sensor * luminosidade;
-Sensor * qualidadeDoAr;
-Sensor * pressaoTemperatura;
-Sensor * vibracao;
+//Sensor * qualidadeDoAr;
+//Sensor * pressaoTemperatura;
+//Sensor * vibracao;
 
 void setup() {
 
@@ -53,15 +47,15 @@ void setup() {
   Ethernet.begin(mac_addr);
 
   if (connection.connect(server_addr, 3306, user, password)) {
-    Serial.println("Connected!");
+    Serial.println(F("Connected!"));
   } else {
-    Serial.println("Connection failed.");
+    Serial.println(F("Connection failed."));
   }
-
-  luminosidade        = new Luminosidade(A0, TABELA_SENSOR_LUMINOSIDADE);
-  qualidadeDoAr       = new QualidadeDoAr(A1, TABELA_SENSOR_QUALIDADE_AR);
-  pressaoTemperatura  = new PressaoTemperatura(A2, TABELA_SENSOR_PRESSAO_TEMPERATURA);
-  vibracao            = new Vibracao(A3, TABELA_SENSOR_VIBRACOES);
+  
+  luminosidade        = new Luminosidade(A0);
+  //qualidadeDoAr       = new QualidadeDoAr(A1, &TABELA_SENSOR_QUALIDADE_AR);
+  //pressaoTemperatura  = new PressaoTemperatura(A2, &TABELA_SENSOR_PRESSAO_TEMPERATURA);
+  //vibracao            = new Vibracao(A3, &TABELA_SENSOR_VIBRACOES);
 
 }
 
@@ -71,22 +65,22 @@ void loop() {
 
   // read the input on analog pin 0:
   leitura(luminosidade);
-  leitura(qualidadeDoAr);
-  leitura(pressaoTemperatura);
-  leitura(vibracao);
+  //leitura(qualidadeDoAr);
+  //leitura(pressaoTemperatura);
+  //leitura(vibracao);
 
   //Calcular medida
   medir(luminosidade);
-  medir(qualidadeDoAr);
-  medir(pressaoTemperatura);
-  medir(vibracao);
+  //medir(qualidadeDoAr);
+  //medir(pressaoTemperatura);
+  //medir(vibracao);
 
 
   //Gerar Query
   criarQuery(luminosidade);
-  criarQuery(qualidadeDoAr);
-  criarQuery(pressaoTemperatura);
-  criarQuery(vibracao);
+  //criarQuery(qualidadeDoAr);
+  //criarQuery(pressaoTemperatura);
+  //criarQuery(vibracao);
 
 
   //Insert Query
@@ -113,7 +107,7 @@ void medir(Sensor * sensor) {
 }
 
 void criarQuery(Sensor * sensor) {
-  sensor->construirQuery(DATABASE_NAME);
+  sensor->construirQuery();
 }
 
 void insertMySQL(Sensor * sensor) {

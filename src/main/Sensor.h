@@ -33,7 +33,7 @@ class Sensor {
 
     virtual void medir() = 0;
 
-    void construirQuery(const String& DatabaseName);
+    void construirQuery();
 
     void insertMySql(MySQL_Connection& connector);
 
@@ -51,13 +51,12 @@ class Sensor {
     String query;
 
   protected:
-
-    int   leitura;
-    float medida;
     String nomeTabela;
-    String nomeSensor;
-    String unidadeMedida;
-    String qualidade;
+    String  nomeSensor;
+    String  unidadeMedida;
+    String  qualidade;
+    int     leitura;
+    float   medida;
 
 };
 

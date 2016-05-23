@@ -25,10 +25,10 @@ class PressaoTemperatura: public Sensor {
 
   public:
 
-    PressaoTemperatura(int porta, String nomeTabela) :
+    PressaoTemperatura(int porta) :
       Sensor(porta) {
 
-      this->nomeTabela = nomeTabela;
+      nomeTabela = "SensorPreTep";
 
       nomeSensor = "Pressão e Temperatura";
 

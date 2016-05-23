@@ -25,10 +25,10 @@ class QualidadeDoAr: public Sensor {
 
   public:
 
-    QualidadeDoAr(int porta, String nomeTabela) :
+    QualidadeDoAr(int porta) :
       Sensor(porta) {
 
-      this->nomeTabela = nomeTabela;
+      nomeTabela = "SensorQuAr";
 
       nomeSensor = "Qualidade do Ar";
 

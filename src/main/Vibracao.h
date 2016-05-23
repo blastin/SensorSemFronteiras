@@ -25,10 +25,10 @@ class Vibracao: public Sensor {
 
   public:
 
-    Vibracao(int porta, String nomeTabela) :
+    Vibracao(int porta) :
       Sensor(porta) {
 
-      this->nomeTabela = nomeTabela;
+      nomeTabela = "SensorVibrc";;
 
       nomeSensor = "Vibrações";
 

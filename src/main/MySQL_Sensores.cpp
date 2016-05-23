@@ -22,7 +22,9 @@
 #include "MySQL_Sensores.h"
 #include "Sensor.h"
 
-void Sensor::construirQuery(const String& DatabaseName) {
+static const String DatabaseName = "DB_NAME";
+
+void Sensor::construirQuery() {
 
   /*
     Generic Tabela:

@@ -25,17 +25,17 @@ class Luminosidade: public Sensor {
 
   public:
 
-    Luminosidade(int porta, String nomeTabela) :
+    Luminosidade(int porta) :
       Sensor(porta) {
 
-      this->nomeTabela = nomeTabela;
+      nomeTabela = "SensorLumi";
 
       nomeSensor = "luminosidade";
 
     }
 
     void medir();
-
+    
 };
 
 #endif
