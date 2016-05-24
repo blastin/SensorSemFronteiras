@@ -24,18 +24,18 @@
 
 /* Setup for Ethernet Library */
 byte mac_addr[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
-IPAddress server_addr(85, 10, 205, 173); // endereço do servidor db4free.net
+IPAddress server_addr(54, 215, 148, 52); // endereço do servidor freesqldatabase.com
 EthernetClient client;
 
 /* Setup for the Connector/Arduino */
 MySQL_Connection connection((Client *)&client);
-char user[]     = "{nomedousuario}";
-char password[] = "{senhadousuario}";
+char user[]     = "sql3120763";
+char password[] = "";
 
 Sensor * luminosidade;
-Sensor * qualidadeDoAr;
-Sensor * pressaoTemperatura;
-Sensor * vibracao;
+//Sensor * qualidadeDoAr;
+//Sensor * pressaoTemperatura;
+//Sensor * vibracao;
 
 void setup() {
 
@@ -51,9 +51,9 @@ void setup() {
   }
 
   luminosidade        = new Luminosidade(A0);
-  qualidadeDoAr       = new QualidadeDoAr(A1);
-  pressaoTemperatura  = new PressaoTemperatura(A2);
-  vibracao            = new Vibracao(A3);
+  //qualidadeDoAr       = new QualidadeDoAr(A1);
+  //pressaoTemperatura  = new PressaoTemperatura(A2);
+  //vibracao            = new Vibracao(A3);
 
 }
 
@@ -61,33 +61,33 @@ void loop() {
 
   /*Leitura analógica de cada sensor.*/
   AnalogRead(luminosidade);
-  AnalogRead(qualidadeDoAr);
-  AnalogRead(pressaoTemperatura);
-  AnalogRead(vibracao);
+  //AnalogRead(qualidadeDoAr);
+  //AnalogRead(pressaoTemperatura);
+  //AnalogRead(vibracao);
 
   /* Calcular medida,
      especificar unidade
      detalhar informações adicionais do ambiente
   */
   construirInformacoes(luminosidade);
-  construirInformacoes(qualidadeDoAr);
-  construirInformacoes(pressaoTemperatura);
-  construirInformacoes(vibracao);
+  //construirInformacoes(qualidadeDoAr);
+  //construirInformacoes(pressaoTemperatura);
+  //construirInformacoes(vibracao);
 
 
   /*
      Gerar String formatada para a biblioteca MySQL inserir no banco de dados.
   */
   gerenciarQuery(luminosidade);
-  gerenciarQuery(qualidadeDoAr);
-  gerenciarQuery(pressaoTemperatura);
-  gerenciarQuery(vibracao);
+  //gerenciarQuery(qualidadeDoAr);
+  //gerenciarQuery(pressaoTemperatura);
+  //gerenciarQuery(vibracao);
 
   /* Armazenar informações do sensor no banco de dados */
   insertMySQL(luminosidade);
-  insertMySQL(qualidadeDoAr);
-  insertMySQL(pressaoTemperatura);
-  insertMySQL(vibracao);
+  //insertMySQL(qualidadeDoAr);
+  //insertMySQL(pressaoTemperatura);
+  //insertMySQL(vibracao);
 
   delay(3000);
 

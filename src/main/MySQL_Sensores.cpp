@@ -21,7 +21,7 @@
 #include "MySQL_Sensores.h"
 #include "Sensor.h"
 
-static const String DatabaseName = "DB_NAME";
+static const String DatabaseName = "sql3120763";
 
 void Sensor::construirQuery() {
 
@@ -35,37 +35,32 @@ void Sensor::construirQuery() {
 
   */
 
-  query = F("INSERT INTO database.tabela (nome,medida,unidade,qualidade) VALUES ('nomeSensor',$medida,'unidade_medida','$qualidade')");
+  query = F("INSERT INTO $database.$tabela (nome,medida,unidade_medida,qualidade) VALUES ('$nomeSensor',$medida,'$unidademedida','$qualidade')");
 
   String medidaString = String(medida, 4);
   
-  query.replace(F("database"), DatabaseName);
-  query.replace(F("tabela"), nomeTabela);
-  query.replace(F("nomeSensor"), nomeSensor);
+  query.replace(F("$database"), DatabaseName);
+  query.replace(F("$tabela"), nomeTabela);
+  query.replace(F("$nomeSensor"), nomeSensor);
   query.replace(F("$medida"), medidaString);
-  query.replace(F("unidade_medida"), unidadeMedida);
+  query.replace(F("$unidademedida"), unidadeMedida);
   query.replace(F("$qualidade"), qualidade);
-
-  Serial.print(F("Sensor :"));
-  Serial.print(nomeSensor);
-  Serial.print(F("\t <> \t"));
-  Serial.println(query);
-
+  
 }
 
 void Sensor::insertMySql(MySQL_Connection& connector) {
 
-  char queryChar[query.length() + 1];
-
+  char queryChar[query.length() + 2];
+  
   // Initiate the query class instance
   MySQL_Cursor *cur_mem = new MySQL_Cursor(&connector);
-
+  
   //gerando char[]
-  query.toCharArray(queryChar, query.length());
-
+  query.toCharArray(queryChar, query.length() + 1);
+  
   // Execute the query
   cur_mem->execute(queryChar);
-
+  
   // Note: since there are no results, we do not need to read any data
   // Deleting the cursor also frees up memory used
   delete cur_mem;
