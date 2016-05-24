@@ -20,7 +20,7 @@
 #define SENSOR_CLASSE_H
 
 #include <Arduino.h>
-#include "./MySQL_Sensores.h"
+#include "MySQL_Sensores.h"
 
 class Sensor {
 

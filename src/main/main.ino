@@ -19,8 +19,8 @@
 #include <SPI.h>
 #include <Ethernet.h>
 
-#include "./MySQL_Sensores.h"
-#include "./Sensores.h"
+#include "MySQL_Sensores.h"
+#include "Sensores.h"
 
 /* Setup for Ethernet Library */
 byte mac_addr[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };

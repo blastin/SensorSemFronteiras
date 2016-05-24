@@ -17,7 +17,6 @@
 */
 
 #include <Arduino.h>
-#include <stdlib.h>
 
 #include "MySQL_Sensores.h"
 #include "Sensor.h"
