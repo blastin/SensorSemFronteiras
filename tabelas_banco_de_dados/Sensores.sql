@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `SensorQuAr` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
-CREATE TABLE IF NOT EXISTS `SensorVibrc` (
+CREATE TABLE IF NOT EXISTS `SensorAcel` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `medida` float DEFAULT NULL,
