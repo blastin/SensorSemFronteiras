@@ -25,8 +25,8 @@ class QualidadeDoAr: public Sensor {
 
   public:
 
-    QualidadeDoAr(int porta) :
-      Sensor(porta) {
+    QualidadeDoAr() :
+      Sensor() {
 
       nomeTabela = F("SensorQuAr");
 
@@ -35,10 +35,12 @@ class QualidadeDoAr: public Sensor {
     }
 
     void construirInformacoes();
+    void leituraSensor();
 
 };
 
 #endif
+
 
 
 

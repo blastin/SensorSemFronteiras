@@ -19,12 +19,14 @@
 #include <SPI.h>
 #include <Ethernet.h>
 
+
 #include "MySQL_Sensores.h"
 #include "Sensores.h"
 
 /* Setup for Ethernet Library */
 byte mac_addr[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
 IPAddress server_addr(54, 215, 148, 52); // endereço do servidor freesqldatabase.com
+//IPAddress ip();
 EthernetClient client;
 
 /* Setup for the Connector/Arduino */
@@ -35,35 +37,36 @@ char password[] = "";
 Sensor * luminosidade;
 //Sensor * qualidadeDoAr;
 //Sensor * pressaoTemperatura;
-//Sensor * vibracao;
+//Sensor * aceleracao;
 
 void setup() {
 
   // initialize serial communication at 9600 bits per second:
   Serial.begin(9600);
+  Serial.println("\n");
+  
+  /*Ethernet.begin(mac_addr);
 
-  Ethernet.begin(mac_addr);
-
-  if (connection.connect(server_addr, 3306, user, password)) {
+    if (connection.connect(server_addr, 3306, user, password)) {
     Serial.println(F("Connected!"));
-  } else {
+    } else {
     Serial.println(F("Connection failed."));
-  }
+    }*/
 
-  luminosidade        = new Luminosidade(A0);
+  luminosidade          = new Luminosidade(A0);
   //qualidadeDoAr       = new QualidadeDoAr(A1);
   //pressaoTemperatura  = new PressaoTemperatura(A2);
-  //vibracao            = new Vibracao(A3);
+  //aceleracao            = new Aceleracao(A3);
 
 }
 
 void loop() {
 
   /*Leitura analógica de cada sensor.*/
-  AnalogRead(luminosidade);
-  //AnalogRead(qualidadeDoAr);
-  //AnalogRead(pressaoTemperatura);
-  //AnalogRead(vibracao);
+  leitura(luminosidade);
+  //leitura(qualidadeDoAr);
+  //leitura(pressaoTemperatura);
+  //leitura(aceleracao);
 
   /* Calcular medida,
      especificar unidade
@@ -72,7 +75,7 @@ void loop() {
   construirInformacoes(luminosidade);
   //construirInformacoes(qualidadeDoAr);
   //construirInformacoes(pressaoTemperatura);
-  //construirInformacoes(vibracao);
+  //construirInformacoes(aceleracao);
 
 
   /*
@@ -81,21 +84,20 @@ void loop() {
   gerenciarQuery(luminosidade);
   //gerenciarQuery(qualidadeDoAr);
   //gerenciarQuery(pressaoTemperatura);
-  //gerenciarQuery(vibracao);
+  //gerenciarQuery(aceleracao);
 
   /* Armazenar informações do sensor no banco de dados */
-  insertMySQL(luminosidade);
+  //insertMySQL(luminosidade);
   //insertMySQL(qualidadeDoAr);
   //insertMySQL(pressaoTemperatura);
-  //insertMySQL(vibracao);
+  //insertMySQL(aceleracao);
 
   delay(3000);
 
 }
 
-void AnalogRead(Sensor * sensor) {
-  // read the input on analog pin N:
-  sensor->setLeitura(analogRead(sensor->getPorta()));
+void leitura(Sensor * sensor) {
+  sensor->leituraSensor();
 }
 
 void construirInformacoes(Sensor * sensor) {
@@ -109,4 +111,5 @@ void gerenciarQuery(Sensor * sensor) {
 void insertMySQL(Sensor * sensor) {
   sensor->insertMySql(connection);
 }
+
 

@@ -22,6 +22,6 @@
 #include "./Luminosidade.h"
 #include "./PressaoTemperatura.h"
 #include "./QualidadeDoAr.h"
-#include "./Vibracao.h"
+#include "./Aceleracao.h"
 
 #endif

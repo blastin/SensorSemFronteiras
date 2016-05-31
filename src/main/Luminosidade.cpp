@@ -19,16 +19,28 @@
 
 #include "Luminosidade.h"
 
-void Luminosidade::construirInformacoes() {
 
-  //TODO: O código abaixo é apenas um exemplo.
+void Luminosidade::leituraSensor() {
+  leitura = analogRead(porta);
+}
+
+void Luminosidade::construirInformacoes() {
+  
   medida = leitura * (5.0 / 1023.0);
 
-  qualidade = "boa luminosidade";
-
+  if(medida > 0.98)
+    informacao = "boa luminosidade";
+  else if(medida > 0.61)
+    informacao = "luminosidade regular";
+  else if(medida > 0.39)
+    informacao = "pessima luminosidade";
+  else
+    informacao = "ambiente escuro";
+    
   unidadeMedida = "lux";
-
+  
 }
+
 
 
 

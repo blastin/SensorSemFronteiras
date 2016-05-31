@@ -17,11 +17,16 @@
 
 */
 
-#include "Vibracao.h"
+#include "Aceleracao.h"
 
-void Vibracao::construirInformacoes() {
+void Aceleracao::leituraSensor() {
 
 }
+
+void Aceleracao::construirInformacoes() {
+
+}
+
 
 
 

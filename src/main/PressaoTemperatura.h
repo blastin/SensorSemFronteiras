@@ -25,8 +25,8 @@ class PressaoTemperatura: public Sensor {
 
   public:
 
-    PressaoTemperatura(int porta) :
-      Sensor(porta) {
+    PressaoTemperatura() :
+      Sensor() {
 
       nomeTabela = F("SensorPreTep");
 
@@ -35,10 +35,12 @@ class PressaoTemperatura: public Sensor {
     }
 
     void construirInformacoes();
+    void leituraSensor();
 
 };
 
 #endif
+
 
 
 

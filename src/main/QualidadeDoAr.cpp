@@ -19,9 +19,14 @@
 
 #include "QualidadeDoAr.h"
 
+void QualidadeDoAr::leituraSensor(){
+
+}
+
 void QualidadeDoAr::construirInformacoes() {
   
 }
+
 
 
 

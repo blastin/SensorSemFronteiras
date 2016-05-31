@@ -19,9 +19,14 @@
 
 #include "PressaoTemperatura.h"
 
+void PressaoTemperatura::leituraSensor(){
+
+}
+
 void PressaoTemperatura::construirInformacoes() {
   
 }
+
 
 
 

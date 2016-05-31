@@ -21,24 +21,26 @@
 
 #include "Sensor.h"
 
-class Vibracao: public Sensor {
+class Aceleracao: public Sensor {
 
   public:
 
-    Vibracao(int porta) :
-      Sensor(porta) {
+    Aceleracao() :
+      Sensor() {
 
-      nomeTabela = F("SensorVibrc");
+      nomeTabela = F("SensorAcel");
 
-      nomeSensor = F("Vibrações");
-      
+      nomeSensor = F("Aceleracao");
+
     }
 
     void construirInformacoes();
+    void leituraSensor();
 
 };
 
 #endif
+
 
 
 

@@ -35,7 +35,7 @@ void Sensor::construirQuery() {
 
   */
 
-  query = F("INSERT INTO $database.$tabela (nome,medida,unidade_medida,qualidade) VALUES ('$nomeSensor',$medida,'$unidademedida','$qualidade')");
+  query = F("INSERT INTO $database.$tabela (nome,medida,unidade_medida,informacao) VALUES ('$nomeSensor',$medida,'$unidademedida','$informacao')");
 
   String medidaString = String(medida, 4);
   
@@ -44,7 +44,9 @@ void Sensor::construirQuery() {
   query.replace(F("$nomeSensor"), nomeSensor);
   query.replace(F("$medida"), medidaString);
   query.replace(F("$unidademedida"), unidadeMedida);
-  query.replace(F("$qualidade"), qualidade);
+  query.replace(F("$informacao"), informacao);
+
+  Serial.println(query);
   
 }
 

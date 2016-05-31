@@ -27,38 +27,30 @@ class Sensor {
   public:
 
     explicit
-    Sensor(int porta) {
-      this->porta = porta;
-    }
-
+    Sensor() {}
+    
     virtual void construirInformacoes() = 0;
 
+    virtual void leituraSensor() = 0;
+    
     void construirQuery();
 
     void insertMySql(MySQL_Connection& connector);
-
-    void setLeitura(int leitura) {
-      this->leitura = leitura;
-    }
-
-    int getPorta() {
-      return porta;
-    }
-
+    
   private:
-
-    int porta;
+  
     String query;
 
   protected:
     String nomeTabela;
     String  nomeSensor;
     String  unidadeMedida;
-    String  qualidade;
+    String  informacao;
     int     leitura;
     float   medida;
 
 };
 
 #endif
+
 
