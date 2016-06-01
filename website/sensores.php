@@ -49,7 +49,7 @@
 
     $servername = "sql3.freesqldatabase.com";
     $username = "sql3121775";
-    $password = "zn9aeuSusI";
+    $password = "";
     $dbname = "sql3121775";
 
     // Create connection
