@@ -27,6 +27,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `SensorLumi` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tempo` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `nome` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `medida` float DEFAULT NULL,
   `unidade_medida` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
@@ -36,6 +37,7 @@ CREATE TABLE IF NOT EXISTS `SensorLumi` (
 
 CREATE TABLE IF NOT EXISTS `SensorPreTep` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+		`tempo` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `nome` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `medida` float DEFAULT NULL,
   `unidade_medida` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
@@ -46,6 +48,7 @@ CREATE TABLE IF NOT EXISTS `SensorPreTep` (
 
 CREATE TABLE IF NOT EXISTS `SensorQuAr` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+		`tempo` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `nome` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `medida` float DEFAULT NULL,
   `unidade_medida` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
@@ -55,6 +58,7 @@ CREATE TABLE IF NOT EXISTS `SensorQuAr` (
 
 CREATE TABLE IF NOT EXISTS `SensorAcel` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+		`tempo` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `nome` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `medida` float DEFAULT NULL,
   `unidade_medida` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
