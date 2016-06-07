@@ -1,0 +1,9 @@
+Especificações de portas :
+
+Otavio
+  leitura umidade : A0 (analogica)
+  
+Arthur
+  leitura de pressão : A4 , A5 (analogica)
+  leitura de umidade  e temperatura : 2  ( digital)
+  
