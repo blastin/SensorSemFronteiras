@@ -13,20 +13,57 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     @author Modelo Abstrato : Jefferson Lisboa.
-    @author Medida do sensor:
+    @author Medida do sensor: Thiago Yuji
 
 */
 
 #include "Aceleracao.h"
+#include <math.h>
 
 void Aceleracao::leituraSensor() {
-
+  calcular(x,y,z); 
 }
 
 void Aceleracao::construirInformacoes() {
 
+  informacao = "(x,y,z) => Variacao(";
+
+  if ( fabs(x - xantigo) > 3 ) {
+    informacao.concat(F("x"));
+    xantigo = x;
+  }
+  informacao.concat(F(","));
+  if ( fabs(y - yantigo) > 3 ) {
+    informacao.concat(F("y"));
+    yantigo = y;
+  }
+  informacao.concat(F(","));
+  if ( fabs(z - zantigo) > 3 ) {
+    informacao.concat(F("z"));
+    zantigo = z;
+  }
+
+  informacao.concat(F(")"));
+
 }
 
+void Aceleracao::setup_Aceleracao() {
 
+  accelero.begin(13, 12, 11, 10, A0, A1, A2);
+  accelero.setARefVoltage(3.3);
+  accelero.setSensitivity(LOW);
+
+  calcular(xantigo, yantigo, zantigo);
+
+}
+
+inline
+void Aceleracao::calcular(float &vetor_i, float& vetor_j, float& vetor_k) {
+
+  vetor_i = accelero.getXAccel(); //Obtem o valor do eixo X
+  vetor_j = accelero.getYAccel(); //Obtem o valor do eixo Y
+  vetor_k = accelero.getZAccel(); //Obtem o valor do eixo Z
+
+}
 
 

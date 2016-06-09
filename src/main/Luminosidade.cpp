@@ -13,7 +13,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     @author Modelo Abstrato : Jefferson Lisboa.
-    @author Medida do sensor:
+    @author Medida do sensor: Jefferson Lisboa.
 
 */
 
@@ -25,10 +25,12 @@ void Luminosidade::leituraSensor() {
 }
 
 void Luminosidade::construirInformacoes() {
-  
-  medida = leitura * (5.0 / 1023.0);
 
-  if(medida > 0.98)
+  float medida = leitura * (5.0 / 1023.0);
+
+  if(medida > 1.76)
+    informacao = "alta luminosidade";
+  else if(medida > 0.98)
     informacao = "boa luminosidade";
   else if(medida > 0.61)
     informacao = "luminosidade regular";
@@ -36,9 +38,7 @@ void Luminosidade::construirInformacoes() {
     informacao = "pessima luminosidade";
   else
     informacao = "ambiente escuro";
-    
-  unidadeMedida = "lux";
-  
+ 
 }
 
 

@@ -26,16 +26,26 @@ class PressaoTemperatura: public Sensor {
   public:
 
     PressaoTemperatura() :
+
       Sensor() {
 
       nomeTabela = F("SensorPreTep");
 
-      nomeSensor = F("Pressão e Temperatura");
+      nomeSensor = F("Pressao e Temperatura");
+
+      setupPressaoTemperatura();
 
     }
 
     void construirInformacoes();
     void leituraSensor();
+
+  private:
+
+    void setupPressaoTemperatura();
+    float humidity;
+    float temperature;
+    float seaLevelPressure;
 
 };
 

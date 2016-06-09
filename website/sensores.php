@@ -47,7 +47,7 @@
 
     <?php
 
-    $servername = "sql3.freesqldatabase.com";
+    $servername = "localhost;
     $username = "sql3121775";
     $password = "";
     $dbname = "sql3121775";

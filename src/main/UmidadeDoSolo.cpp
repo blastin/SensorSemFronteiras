@@ -12,18 +12,39 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-    @author inclusões : Jefferson Lisboa.
+    @author Modelo Abstrato : Jefferson Lisboa.
+    @author Medida do sensor: Otavio Teodoro Souza Silva
 
 */
 
-#ifndef MySQL_SENSOR_CLASSE_H
-#define MySQL_SENSOR_CLASSE_H
+#include "UmidadeDoSolo.h"
 
-#include <MySQL_Encrypt_Sha1.h>
-#include <MySQL_Packet.h>
-#include <MySQL_Connection.h>
-#include <MySQL_Cursor.h>
+void UmidadeSolo::leituraSensor() {
 
-#endif
+  leitura = analogRead(porta);
+
+}
+
+void UmidadeSolo::construirInformacoes() {
+
+  int umidade = map(umidade, 1023, 0, 0, 200);
+
+  if (umidade >= 65) {
+
+    informacao = F("Alta Umidade");
+
+  } else if ((umidade < 65) && (umidade >= 40)) {
+
+    informacao = F("Media Umidade");
+
+  } else {
+
+    informacao = F("Baixa Umidade");
+
+  }
+
+}
+
+
 
 

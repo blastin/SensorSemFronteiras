@@ -20,6 +20,8 @@
 #define SENSOR_VIBRACAO_CLASSE_H
 
 #include "Sensor.h"
+#include <AcceleroMMA7361.h>
+
 
 class Aceleracao: public Sensor {
 
@@ -32,10 +34,22 @@ class Aceleracao: public Sensor {
 
       nomeSensor = F("Aceleracao");
 
+      setup_Aceleracao();
+
     }
 
     void construirInformacoes();
     void leituraSensor();
+
+  private:
+
+    void setup_Aceleracao();
+    void calcular(float &vetor_i, float& vetor_j, float& vetor_k);
+
+    AcceleroMMA7361 accelero;
+
+    float xantigo, yantigo, zantigo;
+    float x, y, z;
 
 };
 

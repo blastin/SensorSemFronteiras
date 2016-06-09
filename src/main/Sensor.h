@@ -28,27 +28,19 @@ class Sensor {
 
     explicit
     Sensor() {}
-    
+
     virtual void construirInformacoes() = 0;
 
     virtual void leituraSensor() = 0;
-    
+
     void construirQuery();
-
-    void insertMySql(MySQL_Connection& connector);
     
-  private:
-  
-    String query;
-
   protected:
+      
     String nomeTabela;
     String  nomeSensor;
-    String  unidadeMedida;
     String  informacao;
-    int     leitura;
-    float   medida;
-
+    
 };
 
 #endif
