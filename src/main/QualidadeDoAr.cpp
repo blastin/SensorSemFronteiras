@@ -12,18 +12,31 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-    @author Modelo Abstrato : Jefferson Lisboa.
-    @author Medida do sensor:
-
+    @author Modelo Abstrato : Jefferson Lisboa
+    @author Medida do sensor: Mirella de Medeiros e Ana Souza
+    
 */
 
 #include "QualidadeDoAr.h"
 
-void QualidadeDoAr::leituraSensor(){
-
+void QualidadeDoAr::leituraSensor() {
+  leitura = analogRead(porta);
 }
 
 void QualidadeDoAr::construirInformacoes() {
+
+  if (QualidadeAr < 90) {
+    informacao = "Ar fresco";
+  }
+  else if (QualidadeAr < 340) {
+    informacao = "Pouco poluido";
+  }
+  else if (QualidadeAr < 650) {
+    informacao = "Bem poluido";
+  }
+  else {
+    informacao = "Muito poluido";
+  }
   
 }
 

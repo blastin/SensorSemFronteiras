@@ -1,15 +1,5 @@
--- phpMyAdmin SQL Dump
--- version 3.5.5
--- http://www.phpmyadmin.net
---
--- Servidor: sql3.freesqldatabase.com
--- Tempo de Geração: 31/05/2016 às 20:18:24
--- Versão do Servidor: 5.5.49-0ubuntu0.12.04.1
--- Versão do PHP: 5.3.28
-
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
+SET time_zone = "-03:00";
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -30,17 +20,17 @@ CREATE TABLE IF NOT EXISTS `SensorLumi` (
   `tempo` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `nome` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `medida` float DEFAULT NULL,
-  `unidade_medida` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `unidade_medida` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
   `informacao` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `SensorPreTep` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-		`tempo` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `tempo` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `nome` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `medida` float DEFAULT NULL,
-  `unidade_medida` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `unidade_medida` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
   `informacao` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
@@ -48,23 +38,35 @@ CREATE TABLE IF NOT EXISTS `SensorPreTep` (
 
 CREATE TABLE IF NOT EXISTS `SensorQuAr` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-		`tempo` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `tempo` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `nome` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `medida` float DEFAULT NULL,
-  `unidade_medida` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `unidade_medida` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
   `informacao` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 CREATE TABLE IF NOT EXISTS `SensorAcel` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-		`tempo` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `tempo` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `nome` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `medida` float DEFAULT NULL,
-  `unidade_medida` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `unidade_medida` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
   `informacao` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+
+CREATE TABLE IF NOT EXISTS `SensorUmidadeSolo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tempo` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `nome` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `medida` float DEFAULT NULL,
+  `unidade_medida` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `informacao` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

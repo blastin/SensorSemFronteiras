@@ -26,17 +26,22 @@ class QualidadeDoAr: public Sensor {
   public:
 
     QualidadeDoAr() :
-      Sensor() {
+      Sensor(int porta) {
 
       nomeTabela = F("SensorQuAr");
 
       nomeSensor = F("Qualidade do Ar");
+
+      this->porta = porta;
 
     }
 
     void construirInformacoes();
     void leituraSensor();
 
+  private:
+    int leitura;
+    int porta;
 };
 
 #endif
