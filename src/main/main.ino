@@ -22,7 +22,8 @@ Sensor * luminosidade;
 //Sensor * qualidadeDoAr;
 //Sensor * pressaoTemperatura;
 //Sensor * aceleracao;
-
+//Sensor * umidadeDoSolo;
+//Sensor * geral;
 
 void setup() {
 
@@ -30,10 +31,11 @@ void setup() {
   Serial.begin(9600);
   Serial.flush();
 
-  luminosidade          = new Luminosidade(A3);
-  //qualidadeDoAr       = new QualidadeDoAr(A1);
-  //pressaoTemperatura  = new PressaoTemperatura();
+  luminosidade            = new Luminosidade(A0);
+  //qualidadeDoAr         = new QualidadeDoAr(A8);
+  //pressaoTemperatura    = new PressaoTemperatura();
   //aceleracao            = new Aceleracao();
+  //umidadeDoSolo         = new UmidadeDoSolo(A0);
 
 }
 
@@ -44,6 +46,7 @@ void loop() {
   //leitura(qualidadeDoAr);
   //leitura(pressaoTemperatura);
   //leitura(aceleracao);
+  //leitura(umidadeDoSolo);
 
   /* Calcular medida,
      especificar unidade
@@ -53,6 +56,7 @@ void loop() {
   //construirInformacoes(qualidadeDoAr);
   //construirInformacoes(pressaoTemperatura);
   //construirInformacoes(aceleracao);
+  //construirInformacoes(umidadeDoSolo);
 
   /*
      Gerar String formatada para a biblioteca MySQL inserir no banco de dados.
@@ -61,8 +65,9 @@ void loop() {
   //gerenciarQuery(qualidadeDoAr);
   //gerenciarQuery(pressaoTemperatura);
   //gerenciarQuery(aceleracao);
+  //gerenciarQuery(umidadeDoSolo);
 
-  delay(1000);
+  delay(250);
 
 }
 

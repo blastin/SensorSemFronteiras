@@ -32,12 +32,12 @@ void Aceleracao::construirInformacoes() {
     informacao.concat(F("x"));
     xantigo = x;
   }
-  informacao.concat(F(","));
+  informacao.concat(F(" "));
   if ( fabs(y - yantigo) > 3 ) {
     informacao.concat(F("y"));
     yantigo = y;
   }
-  informacao.concat(F(","));
+  informacao.concat(F(" "));
   if ( fabs(z - zantigo) > 3 ) {
     informacao.concat(F("z"));
     zantigo = z;
@@ -47,7 +47,7 @@ void Aceleracao::construirInformacoes() {
 
 void Aceleracao::setup_Aceleracao() {
 
-  accelero.begin(13, 12, 11, 10, A0, A1, A2);
+  accelero.begin(13, 12, 11, 10, A1, A2, A3);
   accelero.setARefVoltage(3.3);
   accelero.setSensitivity(LOW);
 

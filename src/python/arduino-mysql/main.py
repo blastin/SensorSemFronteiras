@@ -13,7 +13,7 @@ if __name__ == "__main__":
     config = {
 
         'user': 'arduino',
-        'password': 'PASSWORD_MUDAR',
+        'password': 'zn9aeuSusI',
         'host': 'localhost',
         'database': 'php',
         'raise_on_warnings': True,

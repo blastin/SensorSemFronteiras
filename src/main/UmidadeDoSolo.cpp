@@ -19,13 +19,13 @@
 
 #include "UmidadeDoSolo.h"
 
-void UmidadeSolo::leituraSensor() {
+void UmidadeDoSolo::leituraSensor() {
 
   leitura = analogRead(porta);
 
 }
 
-void UmidadeSolo::construirInformacoes() {
+void UmidadeDoSolo::construirInformacoes() {
 
   int umidade = map(umidade, 1023, 0, 0, 200);
 

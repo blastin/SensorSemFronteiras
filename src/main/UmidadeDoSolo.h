@@ -21,11 +21,11 @@
 
 #include "Sensor.h"
 
-class UmidadeSolo: public Sensor {
+class UmidadeDoSolo: public Sensor {
 
   public:
 
-      UmidadeSolo() :
+    UmidadeDoSolo(int porta) :
       Sensor() {
 
       this->porta = porta;

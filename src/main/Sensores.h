@@ -23,5 +23,5 @@
 #include "./PressaoTemperatura.h"
 #include "./QualidadeDoAr.h"
 #include "./Aceleracao.h"
-
+#include "./UmidadeDoSolo.h"
 #endif

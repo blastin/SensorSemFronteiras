@@ -6,7 +6,7 @@
 
     <style>
         table {
-            width: 100%;
+            width: 50%;
         }
 
         table, th, td {
@@ -15,7 +15,7 @@
         }
 
         th, td {
-            padding: 3px;
+            padding: 1px;
             text-align: left;
         }
 
@@ -28,7 +28,7 @@
         }
 
         table#t01 th {
-            background-color: darkslateblue;
+            background-color: seagreen;
             color: white;
         }
     </style>
@@ -94,23 +94,32 @@
 
         $tempo = $row["tempo"];
 
-        while($table = $tabelaName_resultado->fetch_array()) {
-            echo "<th>" . $table[0] . "</th>";
-        }
+	echo "<th>" . $tempo ." </th>";
 
-        echo "</tr>";
+	echo "</tr>";
 
-        echo "<td>" . $tempo ." </td>";
+	$k = 0;	
 
-        foreach ($resultados as $result) {
+	while($table = $tabelaName_resultado->fetch_array()) {
+		echo "<tr>";            
 
-            if ($result->num_rows > 0) {
+		echo "<th>" . $table[0] . "</th>";
+
+		$result = $resultados[$k];
+
+		$k = $k + 1;
+
+		if ($result->num_rows > 0) {
 
                 $row = $result->fetch_assoc();
 
                 echo "<td>" . $row["informacao"] . "</td>";
 
-            }
+            	}else{
+			echo "<td> </td>";												
+			}
+
+		echo "</tr>";
         }
 
     }

@@ -83,7 +83,7 @@ void PressaoTemperatura::setupPressaoTemperatura() {
 
   if (!bmp.begin()) {
     /* There was a problem detecting the BMP085 ... check your connections */
-    Serial.print("Ooops, no BMP180 detected ... Check your wiring or I2C ADDR!");
+    //Serial.print("Ooops, no BMP180 detected ... Check your wiring or I2C ADDR!");
     while (1);
   }
 
