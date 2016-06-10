@@ -19,26 +19,30 @@
 
 #include "Luminosidade.h"
 
+#define FATOR_AMBIENTAL 1.0 //Esse valor é alterado conforme o ambiente. Logo, antes de compilar, deve-se estabelecer seu valor
 
 void Luminosidade::leituraSensor() {
+
   leitura = analogRead(porta);
 }
 
 void Luminosidade::construirInformacoes() {
 
   float medida = leitura * (5.0 / 1023.0);
-
-  if(medida > 1.76)
+   
+  if (medida > (1.76 - FATOR_AMBIENTAL))
     informacao = "alta luminosidade";
-  else if(medida > 0.98)
+  else if (medida > (0.98 - FATOR_AMBIENTAL / 2))
     informacao = "boa luminosidade";
-  else if(medida > 0.61)
+  else if (medida > (0.61 - FATOR_AMBIENTAL / 3))
     informacao = "luminosidade regular";
-  else if(medida > 0.39)
+  else if (medida > (0.39 - FATOR_AMBIENTAL / 4))
     informacao = "pessima luminosidade";
-  else
+  else if (medida > (0.02 - FATOR_AMBIENTAL / 5))
     informacao = "ambiente escuro";
- 
+  else
+    informacao = "ambiente sem luminosidade";
+
 }
 
 

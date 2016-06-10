@@ -38,19 +38,19 @@
     $page = $_SERVER['PHP_SELF'];
     $sec = "3";
 
+    $db_host = getenv('OPENSHIFT_MYSQL_DB_HOST'); //sample host 
+    $db_user = getenv('OPENSHIFT_MYSQL_DB_USERNAME');
+    $db_pass = getenv('OPENSHIFT_MYSQL_DB_PASSWORD');
+    $db_name = 'php'; //this is the database I created in PhpMyAdmin
 
-    $servername = "sql3.freesqldatabase.com";
-    $username = "sql3121775";
-    $password = "zn9aeuSusI";
-    $dbname = "sql3121775";
+    $sql_names = "SHOW TABLES";
+    $sql_tempo = "SELECT tempo FROM php.SensorLumi ORDER BY tempo DESC LIMIT 1";
 
-    $sql_names = "SELECT tempo, nome FROM SensorLumi UNION SELECT tempo, nome FROM SensorPreTep UNION SELECT tempo, nome FROM SensorAcel UNION SELECT tempo, nome FROM SensorQuAr";
-
-    $sql_lumi = "SELECT  nome, informacao FROM SensorLumi ORDER BY tempo DESC LIMIT 1";
-    $sql_preTep = "SELECT  nome, informacao FROM SensorPreTep ORDER BY tempo DESC LIMIT 1";
-    $sql_aceleracao = "SELECT  nome, informacao FROM SensorAcel ORDER BY tempo DESC LIMIT 1";
-    $sql_qualidadear = "SELECT  nome, informacao FROM SensorQuAr ORDER BY tempo DESC LIMIT 1";
-    $sql_umidadesolo = "SELECT  nome, informacao FROM SensorUmidadeSolo ORDER BY tempo DESC LIMIT 1";
+    $sql_lumi = "SELECT  nome, informacao FROM php.SensorLumi ORDER BY tempo DESC LIMIT 1";
+    $sql_preTep = "SELECT  nome, informacao FROM php.SensorPreTep ORDER BY tempo DESC LIMIT 1";
+    $sql_aceleracao = "SELECT  nome, informacao FROM php.SensorAcel ORDER BY tempo DESC LIMIT 1";
+    $sql_qualidadear = "SELECT  nome, informacao FROM php.SensorQuAr ORDER BY tempo DESC LIMIT 1";
+    $sql_umidadesolo = "SELECT  nome, informacao FROM php.SensorUmidadeSolo ORDER BY tempo DESC LIMIT 1";
 
     ?>
 
@@ -64,37 +64,39 @@
     <?php
 
     // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    $conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
     // Check connection
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $resultado = $conn->query($sql_names);
+    $tabelaName_resultado = $conn->query($sql_names);
 
     $resultados = array(
 
+        $conn->query($sql_aceleracao),
         $conn->query($sql_lumi),
         $conn->query($sql_preTep),
-        $conn->query($sql_aceleracao),
         $conn->query($sql_qualidadear),
         $conn->query($sql_umidadesolo)
+
     );
 
+    $tempo_resultado = $conn->query($sql_tempo);
 
-    if ($resultado->num_rows > 0) {
+    if ($tempo_resultado->num_rows > 0) {
 
         echo "<tr>";
 
-        echo "<th> Tempo </th>";
+        echo "<th> Last Update </th>";
 
-        $row = $resultado->fetch_assoc();
+        $row = $tempo_resultado->fetch_assoc();
 
         $tempo = $row["tempo"];
 
-        do {
-            echo "<th>" . $row["nome"] . "</th>";
-        }while($row = $resultado->fetch_assoc());
+        while($table = $tabelaName_resultado->fetch_array()) {
+            echo "<th>" . $table[0] . "</th>";
+        }
 
         echo "</tr>";
 

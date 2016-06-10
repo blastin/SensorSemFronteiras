@@ -42,7 +42,7 @@ void UmidadeSolo::construirInformacoes() {
     informacao = F("Baixa Umidade");
 
   }
-
+  
 }
 
 

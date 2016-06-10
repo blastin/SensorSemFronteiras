@@ -20,20 +20,20 @@
 
 Sensor * luminosidade;
 //Sensor * qualidadeDoAr;
-Sensor * pressaoTemperatura;
-Sensor * aceleracao;
+//Sensor * pressaoTemperatura;
+//Sensor * aceleracao;
 
 
 void setup() {
-  
+
   // initialize serial communication at 9600 bits per second:
   Serial.begin(9600);
-  Serial.println("\n");
-  
+  Serial.flush();
+
   luminosidade          = new Luminosidade(A3);
   //qualidadeDoAr       = new QualidadeDoAr(A1);
-  pressaoTemperatura  = new PressaoTemperatura();
-  aceleracao            = new Aceleracao();
+  //pressaoTemperatura  = new PressaoTemperatura();
+  //aceleracao            = new Aceleracao();
 
 }
 
@@ -42,8 +42,8 @@ void loop() {
   /*Leitura analógica e/ou digital de cada sensor.*/
   leitura(luminosidade);
   //leitura(qualidadeDoAr);
-  leitura(pressaoTemperatura);
-  leitura(aceleracao);
+  //leitura(pressaoTemperatura);
+  //leitura(aceleracao);
 
   /* Calcular medida,
      especificar unidade
@@ -51,19 +51,19 @@ void loop() {
   */
   construirInformacoes(luminosidade);
   //construirInformacoes(qualidadeDoAr);
-  construirInformacoes(pressaoTemperatura);
-  construirInformacoes(aceleracao);
-  
+  //construirInformacoes(pressaoTemperatura);
+  //construirInformacoes(aceleracao);
+
   /*
      Gerar String formatada para a biblioteca MySQL inserir no banco de dados.
   */
   gerenciarQuery(luminosidade);
   //gerenciarQuery(qualidadeDoAr);
-  gerenciarQuery(pressaoTemperatura);
-  gerenciarQuery(aceleracao);
-  
+  //gerenciarQuery(pressaoTemperatura);
+  //gerenciarQuery(aceleracao);
+
   delay(1000);
-  
+
 }
 
 void leitura(Sensor * sensor) {

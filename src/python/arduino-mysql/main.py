@@ -12,10 +12,10 @@ SLEEP_INTERVAL = 5.0
 if __name__ == "__main__":
     config = {
 
-        'user': 'sql3121775',
-        'password': 'zn9aeuSusI',
-        'host': 'sql3.freesqldatabase.com',
-        'database': 'sql3121775',
+        'user': 'arduino',
+        'password': 'PASSWORD_MUDAR',
+        'host': 'localhost',
+        'database': 'php',
         'raise_on_warnings': True,
 
     }
@@ -54,7 +54,7 @@ if __name__ == "__main__":
 
                     tupla_informacao = tuple(string.split(':', 1)[1].split(','))
 
-                    adicionar_info = "INSERT INTO sql3121775." + nometabela + " (nome,informacao) VALUES (%s,%s)"
+                    adicionar_info = "INSERT INTO " + nometabela + " (nome,informacao) VALUES (%s,%s)"
 
                     cursor.execute(adicionar_info, tupla_informacao)
 

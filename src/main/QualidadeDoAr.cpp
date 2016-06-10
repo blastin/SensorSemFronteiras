@@ -14,30 +14,30 @@
 
     @author Modelo Abstrato : Jefferson Lisboa
     @author Medida do sensor: Mirella de Medeiros e Ana Souza
-    
+
 */
 
 #include "QualidadeDoAr.h"
 
 void QualidadeDoAr::leituraSensor() {
-  leitura = analogRead(porta);
+  qualidadeAr = analogRead(porta);
 }
 
 void QualidadeDoAr::construirInformacoes() {
 
-  if (QualidadeAr < 90) {
+  if (qualidadeAr < 90) {
     informacao = "Ar fresco";
   }
-  else if (QualidadeAr < 340) {
+  else if (qualidadeAr < 340) {
     informacao = "Pouco poluido";
   }
-  else if (QualidadeAr < 650) {
+  else if (qualidadeAr < 650) {
     informacao = "Bem poluido";
   }
   else {
     informacao = "Muito poluido";
   }
-  
+
 }
 
 

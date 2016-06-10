@@ -26,7 +26,7 @@ void Aceleracao::leituraSensor() {
 
 void Aceleracao::construirInformacoes() {
 
-  informacao = "(x,y,z) => Variacao(";
+  informacao = "O Equipamento modificou os eixos: ";
 
   if ( fabs(x - xantigo) > 3 ) {
     informacao.concat(F("x"));
@@ -42,9 +42,7 @@ void Aceleracao::construirInformacoes() {
     informacao.concat(F("z"));
     zantigo = z;
   }
-
-  informacao.concat(F(")"));
-
+  
 }
 
 void Aceleracao::setup_Aceleracao() {

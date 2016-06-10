@@ -32,7 +32,7 @@ class Luminosidade: public Sensor {
 
       nomeTabela = F("SensorLumi");
 
-      nomeSensor = F("luminosidade");
+      nomeSensor = F("Luminosidade");
 
     }
 
