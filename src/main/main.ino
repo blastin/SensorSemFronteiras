@@ -28,9 +28,11 @@ Sensor * luminosidade;
 void setup() {
 
   // initialize serial communication at 9600 bits per second:
+  
   Serial.begin(9600);
   Serial.flush();
-
+  Serial.println();
+  
   luminosidade            = new Luminosidade(A0);
   //qualidadeDoAr         = new QualidadeDoAr(A8);
   //pressaoTemperatura    = new PressaoTemperatura();

@@ -2,12 +2,17 @@
 # -*- coding: utf-8 -*-
 
 import mysql.connector
-import time
+import serial
 from optparse import OptionParser
-import os.path
-import tailer
 
-SLEEP_INTERVAL = 5.0
+
+def serial_data(ser):
+
+    try:
+        while True:
+            yield ser.readline()
+    except KeyboardInterrupt:
+        raise
 
 if __name__ == "__main__":
     config = {
@@ -26,42 +31,44 @@ if __name__ == "__main__":
 
     cursor = cnx.cursor()
 
-    try:
+    p = OptionParser("usage: tail.py file")
+    (options, args) = p.parse_args()
 
-        p = OptionParser("usage: tail.py file")
-        (options, args) = p.parse_args()
-        if len(args) < 1:
-            p.error("must specify a file to watch")
+    if len(args) < 1:
+        p.error("must specify o arquivo serial para leitura")
+    else:
 
-        print("Verificando se o arquivo já foi aberto ...")
+        dev = open(args[0], 'r')
 
-        while not os.path.isfile(args[0]):
-            time.sleep(SLEEP_INTERVAL)
+        serial_ = serial.Serial(dev.name, 9600)
 
-        with open(args[0], 'r') as fin:
+        print(serial_)
 
-            print(fin)
+        try:
 
-            for line in tailer.follow(open(args[0])):
+            for line in serial_data(serial_):
 
-                string = line.strip()
+                string = str(serial_.readline())
 
-                if len(string) > 0:
+                if string and len(string) > 0 and string.__contains__(':') and string.__contains__(','):
+
+                    string = string.replace('\n', '').replace('\r', '')
 
                     nometabela = string.split(':', 1)[0]
 
-                    print(string)
+                    tupla = tuple(string.split(':', 1)[1].split(','))
 
-                    tupla_informacao = tuple(string.split(':', 1)[1].split(','))
+                    query = "INSERT INTO " + nometabela + " (nome,informacao) VALUES (%s,%s)"
 
-                    adicionar_info = "INSERT INTO " + nometabela + " (nome,informacao) VALUES (%s,%s)"
-
-                    cursor.execute(adicionar_info, tupla_informacao)
+                    cursor.execute(query, tupla)
 
                     # Make sure data is committed to the database
                     cnx.commit()
 
-    except Exception as e:
-        cursor.close()
-        cnx.close()
-        print(e)
+                    print("MySQL =: tabela: %s\tNome Sensor: %s\tInformação: %s" % (nometabela, tupla[0], tupla[1]))
+
+        except KeyboardInterrupt as e:
+            cursor.close()
+            cnx.close()
+            serial_.close()
+            print("Fim do processo ...")

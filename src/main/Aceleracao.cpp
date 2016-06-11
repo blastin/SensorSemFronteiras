@@ -21,28 +21,38 @@
 #include <math.h>
 
 void Aceleracao::leituraSensor() {
-  calcular(x,y,z); 
+  
+  calcular(x, y, z);
+  
 }
 
 void Aceleracao::construirInformacoes() {
 
-  informacao = "O Equipamento modificou os eixos: ";
+  float variacaoX, variacaoY, variacaoZ;
 
-  if ( fabs(x - xantigo) > 3 ) {
+  informacao = "O Equipamento modificou os eixos: ";
+  
+  variacaoX = fabs(x - xantigo);
+  variacaoY = fabs(y - yantigo);
+  variacaoZ = fabs(z - zantigo);
+
+  if ( variacaoX > 3 ) {
     informacao.concat(F("x"));
     xantigo = x;
   }
+
   informacao.concat(F(" "));
-  if ( fabs(y - yantigo) > 3 ) {
+  if ( variacaoY > 3 ) {
     informacao.concat(F("y"));
     yantigo = y;
   }
+
   informacao.concat(F(" "));
-  if ( fabs(z - zantigo) > 3 ) {
+  if ( variacaoZ > 3 ) {
     informacao.concat(F("z"));
     zantigo = z;
   }
-  
+
 }
 
 void Aceleracao::setup_Aceleracao() {

@@ -38,7 +38,7 @@ void Luminosidade::construirInformacoes() {
     informacao = "luminosidade regular";
   else if (medida > (0.39 - FATOR_AMBIENTAL / 4))
     informacao = "pessima luminosidade";
-  else if (medida > (0.02 - FATOR_AMBIENTAL / 5))
+  else if (medida > (0.199 - FATOR_AMBIENTAL / 5))
     informacao = "ambiente escuro";
   else
     informacao = "ambiente sem luminosidade";
