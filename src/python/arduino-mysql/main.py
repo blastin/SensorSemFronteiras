@@ -30,7 +30,6 @@ from time import sleep
 
 
 class KoalaDatabase:
-
     def __init__(self, configuration):
 
         self.conexao = None
@@ -48,7 +47,6 @@ class KoalaDatabase:
         # type: (string) -> object
 
         while True:
-
             try:
 
                 print("Tentando abrir device do arduino")
@@ -158,25 +156,22 @@ if __name__ == "__main__":
 
     koala.open_session_serial_arduino(args[0])
 
-    try:
-
-        while True:
-
-            try:
-                koala.send_query()
-            except mysql.connector.errors.InterfaceError as e:
-                print(e)
-                koala.connection()
-            except mysql.connector.errors.ProgrammingError as e:
-                print(e)
-                sleep(2)
-                print("Deletando a key : %s" % koala.nomeTabela)
-                del koala.dicionario[koala.nomeTabela]
-            except serial.serialutil.SerialException as e:
-                print(e)
-                koala.open_session_serial_arduino(args[0])
-
-    except KeyboardInterrupt:
-        koala.disconnect()
+    while True:
+        try:
+            koala.send_query()
+        except mysql.connector.errors.InterfaceError as e:
+            print(e)
+            koala.connection()
+        except mysql.connector.errors.ProgrammingError as e:
+            print(e)
+            sleep(2)
+            print("Deletando a key : %s" % koala.nomeTabela)
+            del koala.dicionario[koala.nomeTabela]
+        except serial.serialutil.SerialException as e:
+            print(e)
+            koala.open_session_serial_arduino(args[0])
+        except KeyboardInterrupt:
+            koala.disconnect()
+            break
 
     print("Fim do processo")
