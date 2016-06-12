@@ -4,10 +4,6 @@
     <list default="true" id="6b2d7477-1d61-4977-9def-e50bfc71d43c" name="Default" comment="">
       <change type="DELETED" beforePath="$PROJECT_DIR$/../../../informacoes.txt" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../../.gitignore" afterPath="$PROJECT_DIR$/../../../.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../main/Luminosidade.cpp" afterPath="$PROJECT_DIR$/../../main/Luminosidade.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../main/main.ino" afterPath="$PROJECT_DIR$/../../main/main.ino" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
     </list>
     <ignored path="arduino-mysql.iws" />
@@ -40,10 +36,10 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-432">
-              <caret line="109" column="0" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding>
-                <element signature="e#47#69#0" expanded="true" />
+                <element signature="e#904#926#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -437,7 +433,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#47#69#0" expanded="true" />
+            <element signature="e#904#926#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -505,10 +501,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-432">
-          <caret line="109" column="0" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#47#69#0" expanded="true" />
+            <element signature="e#904#926#0" expanded="true" />
           </folding>
         </state>
       </provider>
