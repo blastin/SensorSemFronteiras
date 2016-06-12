@@ -41,6 +41,7 @@ class KoalaDatabase:
         self.dicionario = {}
         self.config = configuration
 
+        print("Tentando conectar ao banco de dados ... ")
         self.connection()
 
     def open_session_serial_arduino(self, argument):
@@ -49,15 +50,17 @@ class KoalaDatabase:
         while True:
             try:
 
-                print("Tentando abrir device do arduino")
+                print("Tentando abrir device do arduino ... ")
 
                 self.dev = open(argument, 'r')
 
+                print("device aberto com sucesso.!")
                 while True:
                     try:
                         print("Tentando abrir sessão com o serial do arduino ... ")
                         self.serial_arduino = serial.Serial(self.dev.name, 9600)
                         print(self.serial_arduino)
+                        print("Sessão foi aberta com sucesso.!")
                         break
                     except serial.serialutil.SerialException as msgerror:
                         print(msgerror)
@@ -93,6 +96,9 @@ class KoalaDatabase:
                     self.dicionario[self.nomeTabela] = None
 
                 if self.dicionario[self.nomeTabela] != tupla[1]:
+                    # verifica se na chave do dicionário especifico, já foi enviado a mesma informação para o sensor.
+                    # isso evita duplicação de informação e sobrecarga do servidor de banco de dados.
+
                     query = "INSERT INTO " + self.nomeTabela + " (nome,informacao) VALUES (%s,%s)"
 
                     self.cursor.execute(query, tupla)
@@ -116,14 +122,15 @@ class KoalaDatabase:
         self.serial_arduino.close()
 
     def connection(self):
-        print("Tentando conectar")
 
         while True:
             try:
+                print(self.config)
 
                 self.conexao = mysql.connector.connect(**self.config)
                 self.cursor = self.conexao.cursor()
 
+                print("Conexão com o servidor foi aberta com sucesso.!")
                 break
 
             except mysql.connector.errors.InterfaceError as msgerror:
