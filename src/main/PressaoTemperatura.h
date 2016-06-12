@@ -29,9 +29,9 @@ class PressaoTemperatura: public Sensor {
 
       Sensor() {
 
-      nomeTabela = F("SensorPreTep");
+      nomeTabela = "SensorPreTep";
 
-      nomeSensor = F("Pressao e Temperatura");
+      nomeSensor = "Pressao e Temperatura";
 
       setupPressaoTemperatura();
 

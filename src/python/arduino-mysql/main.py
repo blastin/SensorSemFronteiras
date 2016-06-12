@@ -4,17 +4,121 @@
 import mysql.connector
 import serial
 from optparse import OptionParser
+from time import sleep
 
 
-def serial_data(ser):
+class KoalaDatabase:
 
-    try:
+    def __init__(self, configuration):
+
+        self.conexao = None
+        self.cursor = None
+        self.nomeTabela = None
+        self.dev = None
+        self.serial_arduino = None
+
+        self.dicionario = {}
+        self.config = configuration
+
+        self.connection()
+
+    def open_session_serial_arduino(self, argument):
+        # type: (string) -> object
+
         while True:
-            yield ser.readline()
-    except KeyboardInterrupt:
-        raise
+
+            try:
+
+                print("Tentando abrir device do arduino")
+
+                self.dev = open(argument, 'r')
+
+                while True:
+                    try:
+                        print("Tentando abrir sessão com o serial do arduino ... ")
+                        self.serial_arduino = serial.Serial(self.dev.name, 9600)
+                        print(self.serial_arduino)
+                        break
+                    except serial.serialutil.SerialException as msgerror:
+                        print(msgerror)
+                        print("Tentarei novamente abrir a sessão com arduino daqui a 5 segundos ... ")
+                        sleep(5)
+                break
+
+            except IOError as msgerror:
+                print(msgerror)
+                print("Tentarei novamente abrir device do arduino daqui a 5 segundos ... ")
+                sleep(5)
+
+    def serial_data(self):
+
+        while True:
+            yield self.serial_arduino.readline()
+
+    def send_query(self):
+
+        print("Iniciando envio de informações de cada sensor para o banco de dados")
+
+        for string in self.serial_data():
+
+            if string and len(string) > 0 and string.__contains__(':') and string.__contains__(','):
+
+                string = string.replace('\n', '').replace('\r', '')
+
+                self.nomeTabela = string.split(':', 1)[0]
+
+                tupla = tuple(string.split(':', 1)[1].split(','))
+
+                if self.nomeTabela not in self.dicionario:
+                    self.dicionario[self.nomeTabela] = None
+
+                if self.dicionario[self.nomeTabela] != tupla[1]:
+                    query = "INSERT INTO " + self.nomeTabela + " (nome,informacao) VALUES (%s,%s)"
+
+                    self.cursor.execute(query, tupla)
+
+                    print(
+                        "MySQL =: tabela: %s\tNome Sensor: %s\tInformação: %s" % (self.nomeTabela, tupla[0], tupla[1]))
+
+                    # Make sure data is committed to the database
+                    self.conexao.commit()
+
+                    self.dicionario[self.nomeTabela] = str(tupla[1])
+
+                    sleep(1)
+
+    def disconnect(self):
+
+        print("Desconectando do servidor ... ")
+
+        self.cursor.close()
+        self.conexao.close()
+        self.serial_arduino.close()
+
+    def connection(self):
+        print("Tentando conectar")
+
+        while True:
+            try:
+
+                self.conexao = mysql.connector.connect(**self.config)
+                self.cursor = self.conexao.cursor()
+
+                break
+
+            except mysql.connector.errors.InterfaceError as msgerror:
+
+                print(msgerror)
+                print("Tentarei conectar ao servidor em 5 segundos ... ")
+
+                sleep(5)
+                print("Tentando reconectar")
+
 
 if __name__ == "__main__":
+
+    print("Iniciando koala python Serial read ...")
+
     config = {
 
         'user': 'arduino',
@@ -25,50 +129,32 @@ if __name__ == "__main__":
 
     }
 
-    cnx = mysql.connector.connect(**config)
-
-    print("Conexão com o banco de dados realizado com sucesso.!")
-
-    cursor = cnx.cursor()
-
     p = OptionParser("usage: tail.py file")
     (options, args) = p.parse_args()
 
-    if len(args) < 1:
-        p.error("must specify o arquivo serial para leitura")
-    else:
+    koala = KoalaDatabase(config)
 
-        dev = open(args[0], 'r')
+    koala.open_session_serial_arduino(args[0])
 
-        serial_ = serial.Serial(dev.name, 9600)
+    try:
 
-        print(serial_)
+        while True:
 
-        try:
+            try:
+                koala.send_query()
+            except mysql.connector.errors.InterfaceError as e:
+                print(e)
+                koala.connection()
+            except mysql.connector.errors.ProgrammingError as e:
+                print(e)
+                sleep(2)
+                print("Deletando a key : %s" % koala.nomeTabela)
+                del koala.dicionario[koala.nomeTabela]
+            except serial.serialutil.SerialException as e:
+                print(e)
+                koala.open_session_serial_arduino(args[0])
 
-            for line in serial_data(serial_):
+    except KeyboardInterrupt:
+        koala.disconnect()
 
-                string = str(serial_.readline())
-
-                if string and len(string) > 0 and string.__contains__(':') and string.__contains__(','):
-
-                    string = string.replace('\n', '').replace('\r', '')
-
-                    nometabela = string.split(':', 1)[0]
-
-                    tupla = tuple(string.split(':', 1)[1].split(','))
-
-                    query = "INSERT INTO " + nometabela + " (nome,informacao) VALUES (%s,%s)"
-
-                    cursor.execute(query, tupla)
-
-                    # Make sure data is committed to the database
-                    cnx.commit()
-
-                    print("MySQL =: tabela: %s\tNome Sensor: %s\tInformação: %s" % (nometabela, tupla[0], tupla[1]))
-
-        except KeyboardInterrupt as e:
-            cursor.close()
-            cnx.close()
-            serial_.close()
-            print("Fim do processo ...")
+    print("Fim do processo")

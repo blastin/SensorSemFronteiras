@@ -30,9 +30,9 @@ class Aceleracao: public Sensor {
     Aceleracao() :
       Sensor() {
 
-      nomeTabela = F("SensorAcel");
+      nomeTabela = "SensorAcel";
 
-      nomeSensor = F("Aceleracao");
+      nomeSensor = "Aceleracao";
 
       setup_Aceleracao();
 

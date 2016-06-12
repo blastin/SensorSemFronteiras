@@ -30,10 +30,10 @@ class Luminosidade: public Sensor {
 
       this->porta = porta;
 
-      nomeTabela = F("SensorLumi");
-
-      nomeSensor = F("Luminosidade");
-
+      nomeTabela = "SensorLumi";
+      
+      nomeSensor = "Luminosidade";
+      
     }
 
     void construirInformacoes();

@@ -30,9 +30,9 @@ class UmidadeDoSolo: public Sensor {
 
       this->porta = porta;
 
-      nomeTabela = F("SensorUmidadeSolo");
+      nomeTabela = "SensorUmidadeSolo";
 
-      nomeSensor = F("umidadeSolo");
+      nomeSensor = "umidadeSolo";
 
     }
 

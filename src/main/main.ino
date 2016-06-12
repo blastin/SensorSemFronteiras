@@ -69,7 +69,7 @@ void loop() {
   //gerenciarQuery(aceleracao);
   //gerenciarQuery(umidadeDoSolo);
 
-  delay(250);
+  delay(750);
 
 }
 

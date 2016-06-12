@@ -19,7 +19,7 @@
 
 #include "Luminosidade.h"
 
-#define FATOR_AMBIENTAL 1.0 //Esse valor é alterado conforme o ambiente. Logo, antes de compilar, deve-se estabelecer seu valor
+#define FATOR_AMBIENTAL 0.25 //Esse valor é alterado conforme o ambiente. Logo, antes de compilar, deve-se estabelecer seu valor
 
 void Luminosidade::leituraSensor() {
 
@@ -29,7 +29,9 @@ void Luminosidade::leituraSensor() {
 void Luminosidade::construirInformacoes() {
 
   float medida = leitura * (5.0 / 1023.0);
-   
+
+  Serial.println(medida);
+
   if (medida > (1.76 - FATOR_AMBIENTAL))
     informacao = "alta luminosidade";
   else if (medida > (0.98 - FATOR_AMBIENTAL / 2))

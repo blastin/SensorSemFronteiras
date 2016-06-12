@@ -28,9 +28,9 @@ class QualidadeDoAr: public Sensor {
     QualidadeDoAr(int porta) :
       Sensor() {
 
-      nomeTabela = F("SensorQuAr");
+      nomeTabela = "SensorQuAr";
 
-      nomeSensor = F("Qualidade do Ar");
+      nomeSensor = "Qualidade do Ar";
 
       this->porta = porta;
 
