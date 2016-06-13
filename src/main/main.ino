@@ -29,11 +29,8 @@ Sensor * umidadeAr;
 void setup() {
 
   // initialize serial communication at 9600 bits per second:
-
   Serial.begin(9600);
-  Serial.flush();
-  Serial.println();
-
+  
   setupDHT_BMP();
 
   luminosidade          = new Luminosidade(A4);
@@ -47,7 +44,9 @@ void setup() {
 }
 
 void loop() {
-
+  
+  Serial.flush();
+  
   /*Leitura analógica e/ou digital de cada sensor.*/
   leitura(luminosidade);
   leitura(qualidadeDoAr);

@@ -22,7 +22,6 @@
 void Temperatura::leituraSensor() {
 
   temperature = dht.readTemperature();
-  Serial.println(temperature);
   bmp.getTemperature(&temperaturebmp180);// leitura de temperatura
 }
 
