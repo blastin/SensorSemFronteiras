@@ -43,7 +43,9 @@ class KoalaDatabase:
         self.dicionario = {}
         self.config = configuration
 
-        print("Tentando conectar ao banco de dados ... ")
+        print("Tentando conectar ao banco de dados com as seguintes configurações ... ")
+
+        print(self.config)
 
         self.connection()
 
@@ -187,12 +189,10 @@ class KoalaDatabase:
 
             try:
 
-                print(self.config)
-
                 self.conexao = mysql.connector.connect(**self.config)
                 self.cursor = self.conexao.cursor()
 
-                print("Conexão com o servidor foi aberta com sucesso.!")
+                print("Conexão com o servidor foi realizada com sucesso.!")
                 break
 
             except mysql.connector.errors.InterfaceError as msgerror:
@@ -243,7 +243,7 @@ if __name__ == "__main__":
             sleep(2)
 
             print(
-                "Tabela %s foi removida do sistema para diminuir o de custo de processamento de lixos"
+                "Tabela %s foi removida do sistema para diminuir o custo de processamento de lixos"
                 % koala.nomeTabela
             )
 
