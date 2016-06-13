@@ -27,20 +27,24 @@ void UmidadeDoSolo::leituraSensor() {
 
 void UmidadeDoSolo::construirInformacoes() {
 
-  int umidade = map(umidade, 1023, 0, 0, 200);
+  int umidade = map(leitura, 1023, 0, 0, 200);
+  
+  if (umidade >= 25) {
 
-  if (umidade >= 65) {
+    informacao = "Alta Umidade";
 
-    informacao = F("Alta Umidade");
+  } else if (umidade >= 10) {
 
-  } else if ((umidade < 65) && (umidade >= 40)) {
+    informacao = "Media Umidade";
 
-    informacao = F("Media Umidade");
+  } else if (umidade>= 4){
 
-  } else {
+    informacao = "Baixa Umidade";
 
-    informacao = F("Baixa Umidade");
-
+  }else{
+    
+    informacao = "Sem Umidade";
+    
   }
   
 }

@@ -12,33 +12,27 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-    @author Modelo Abstrato : Jefferson Lisboa
-    @author Medida do sensor: Mirella de Medeiros e Ana Souza
+    @author Modelo Abstrato : Jefferson Lisboa.
 
 */
 
-#include "QualidadeDoAr.h"
+#ifndef MODULE_BMP_DHT_CLASSE_H
+#define MODULE_BMP_DHT_CLASSE_H
 
-void QualidadeDoAr::leituraSensor() {
-  qualidadeAr = analogRead(porta);
-}
+#include <Wire.h>
+#include <Adafruit_Sensor.h>
+#include <Adafruit_BMP085_U.h>
+#include "DHT.h"
 
-void QualidadeDoAr::construirInformacoes() {
-  
-  if (qualidadeAr < 88) {
-    informacao = "Ar fresco";
-  }
-  else if (qualidadeAr < 220) {
-    informacao = "Pouco poluido";
-  }
-  else if (qualidadeAr < 450) {
-    informacao = "Bem poluido";
-  }
-  else {
-    informacao = "Muito poluido";
-  }
-  
-}
+#define DHTPIN 37
+#define DHTTYPE DHT11
+
+extern void setupDHT_BMP();
+
+extern DHT dht;
+extern Adafruit_BMP085_Unified bmp;
+
+#endif
 
 
 

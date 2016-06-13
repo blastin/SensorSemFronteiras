@@ -19,25 +19,30 @@
 #include "Sensores.h"
 
 Sensor * luminosidade;
-//Sensor * qualidadeDoAr;
-//Sensor * pressaoTemperatura;
+Sensor * qualidadeDoAr;
 //Sensor * aceleracao;
-//Sensor * umidadeDoSolo;
-//Sensor * geral;
+Sensor * umidadeDoSolo;
+Sensor * pressao;
+Sensor * temperatura;
+Sensor * umidadeAr;
 
 void setup() {
 
   // initialize serial communication at 9600 bits per second:
-  
+
   Serial.begin(9600);
   Serial.flush();
   Serial.println();
-  
-  luminosidade            = new Luminosidade(A0);
-  //qualidadeDoAr         = new QualidadeDoAr(A8);
-  //pressaoTemperatura    = new PressaoTemperatura();
+
+  setupDHT_BMP();
+
+  luminosidade          = new Luminosidade(A4);
+  qualidadeDoAr         = new QualidadeDoAr(A5);
   //aceleracao            = new Aceleracao();
-  //umidadeDoSolo         = new UmidadeDoSolo(A0);
+  umidadeDoSolo         = new UmidadeDoSolo(A0);
+  pressao               = new Pressao();
+  temperatura           = new Temperatura();
+  umidadeAr             = new UmidadeAr();
 
 }
 
@@ -45,29 +50,36 @@ void loop() {
 
   /*Leitura analógica e/ou digital de cada sensor.*/
   leitura(luminosidade);
-  //leitura(qualidadeDoAr);
-  //leitura(pressaoTemperatura);
+  leitura(qualidadeDoAr);
   //leitura(aceleracao);
-  //leitura(umidadeDoSolo);
+  leitura(umidadeDoSolo);
+  leitura(pressao);
+  leitura(temperatura);
+  leitura(umidadeAr);
 
   /* Calcular medida,
      especificar unidade
      detalhar informações adicionais do ambiente
   */
   construirInformacoes(luminosidade);
-  //construirInformacoes(qualidadeDoAr);
-  //construirInformacoes(pressaoTemperatura);
+  construirInformacoes(qualidadeDoAr);
   //construirInformacoes(aceleracao);
-  //construirInformacoes(umidadeDoSolo);
+  construirInformacoes(umidadeDoSolo);
+  construirInformacoes(pressao);
+  construirInformacoes(temperatura);
+  construirInformacoes(umidadeAr);
 
   /*
      Gerar String formatada para a biblioteca MySQL inserir no banco de dados.
   */
   gerenciarQuery(luminosidade);
-  //gerenciarQuery(qualidadeDoAr);
-  //gerenciarQuery(pressaoTemperatura);
+  gerenciarQuery(qualidadeDoAr);
   //gerenciarQuery(aceleracao);
-  //gerenciarQuery(umidadeDoSolo);
+  gerenciarQuery(umidadeDoSolo);
+  gerenciarQuery(pressao);
+  gerenciarQuery(temperatura);
+  gerenciarQuery(umidadeAr);
+
 
   delay(750);
 

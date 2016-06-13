@@ -25,16 +25,6 @@ CREATE TABLE IF NOT EXISTS `SensorLumi` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
-CREATE TABLE IF NOT EXISTS `SensorPreTep` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `tempo` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `nome` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `medida` float DEFAULT NULL,
-  `unidade_medida` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `informacao` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
 
 CREATE TABLE IF NOT EXISTS `SensorQuAr` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -67,6 +57,35 @@ CREATE TABLE IF NOT EXISTS `SensorUmidadeSolo` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
+CREATE TABLE IF NOT EXISTS `SensorPressao` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tempo` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `nome` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `medida` float DEFAULT NULL,
+  `unidade_medida` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `informacao` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `SensorTemp` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tempo` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `nome` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `medida` float DEFAULT NULL,
+  `unidade_medida` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `informacao` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `SensorUmidadeAr` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tempo` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `nome` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `medida` float DEFAULT NULL,
+  `unidade_medida` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `informacao` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

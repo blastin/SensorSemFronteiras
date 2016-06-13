@@ -19,9 +19,12 @@
 #ifndef SENSORES_INCLUDE_H
 #define SENSORES_INCLUDE_H
 
-#include "./Luminosidade.h"
-#include "./PressaoTemperatura.h"
-#include "./QualidadeDoAr.h"
-#include "./Aceleracao.h"
-#include "./UmidadeDoSolo.h"
+#include "Luminosidade.h"
+#include "QualidadeDoAr.h"
+#include "Aceleracao.h"
+#include "UmidadeDoSolo.h"
+#include "Temperatura.h"
+#include "Pressao.h"
+#include "UmidadeAr.h"
+
 #endif

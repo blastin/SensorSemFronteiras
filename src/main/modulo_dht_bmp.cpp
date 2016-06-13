@@ -1,4 +1,3 @@
-
 /*
     This file is part of S.S.F.
     This S.S.F is free software: you can redistribute it and/or modify
@@ -13,31 +12,26 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     @author Modelo Abstrato : Jefferson Lisboa
-    @author Medida do sensor: Mirella de Medeiros e Ana Souza
+    @author Medida do sensor: Arthur Ladislau Pereira
 
 */
 
-#include "QualidadeDoAr.h"
+#include "modulo_dht_bmp.h"
 
-void QualidadeDoAr::leituraSensor() {
-  qualidadeAr = analogRead(porta);
-}
 
-void QualidadeDoAr::construirInformacoes() {
-  
-  if (qualidadeAr < 88) {
-    informacao = "Ar fresco";
+DHT dht(DHTPIN, DHTTYPE);
+Adafruit_BMP085_Unified bmp = Adafruit_BMP085_Unified(10085);
+
+void setupDHT_BMP() {
+
+   dht.begin();
+
+  if (!bmp.begin()) {
+    /* There was a problem detecting the BMP085 ... check your connections */
+    //Serial.print("Ooops, no BMP180 detected ... Check your wiring or I2C ADDR!");
+    while (1);
   }
-  else if (qualidadeAr < 220) {
-    informacao = "Pouco poluido";
-  }
-  else if (qualidadeAr < 450) {
-    informacao = "Bem poluido";
-  }
-  else {
-    informacao = "Muito poluido";
-  }
-  
+   
 }
 
 

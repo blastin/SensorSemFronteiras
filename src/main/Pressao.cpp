@@ -1,4 +1,3 @@
-
 /*
     This file is part of S.S.F.
     This S.S.F is free software: you can redistribute it and/or modify
@@ -13,33 +12,35 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     @author Modelo Abstrato : Jefferson Lisboa
-    @author Medida do sensor: Mirella de Medeiros e Ana Souza
+    @author Medida do sensor: Arthur Ladislau Pereira
 
 */
 
-#include "QualidadeDoAr.h"
+#include "Pressao.h"
 
-void QualidadeDoAr::leituraSensor() {
-  qualidadeAr = analogRead(porta);
-}
+void Pressao::leituraSensor() {}
 
-void QualidadeDoAr::construirInformacoes() {
+void Pressao::construirInformacoes() {
   
-  if (qualidadeAr < 88) {
-    informacao = "Ar fresco";
-  }
-  else if (qualidadeAr < 220) {
-    informacao = "Pouco poluido";
-  }
-  else if (qualidadeAr < 450) {
-    informacao = "Bem poluido";
-  }
-  else {
-    informacao = "Muito poluido";
-  }
+  bmp.getEvent(&event);
   
+  if (event.pressure) {
+
+    float pressao = event.pressure;
+
+    pressao = pressao / 1.3332239;
+    pressao = pressao / 760; //transforma em atm
+     
+    if (pressao > 0.88 && pressao <= 1.2) {
+      informacao = "Zona na regiao do nivel do mar";
+    } else if (pressao > 1.2 && pressao <= 2.2) {
+      informacao = "Zona um pouco afastada do nivel do mar";
+    } else if (pressao > 2.2 && pressao <= 3.2) {
+      informacao = "Zona de pressao intermediaria";
+    } else if (pressao > 3.2) {
+      informacao = "Zona de alta pressao";
+    }
+  }
+
 }
-
-
-
 

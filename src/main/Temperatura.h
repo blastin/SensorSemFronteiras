@@ -12,33 +12,43 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-    @author Modelo Abstrato : Jefferson Lisboa
-    @author Medida do sensor: Mirella de Medeiros e Ana Souza
+    @author Modelo Abstrato : Jefferson Lisboa.
 
 */
 
-#include "QualidadeDoAr.h"
+#ifndef SENSOR_TEMPERATURA_CLASSE_H
+#define SENSOR_TEMPERATURA_CLASSE_H
 
-void QualidadeDoAr::leituraSensor() {
-  qualidadeAr = analogRead(porta);
-}
+#include "Sensor.h"
+#include "modulo_dht_bmp.h"
 
-void QualidadeDoAr::construirInformacoes() {
-  
-  if (qualidadeAr < 88) {
-    informacao = "Ar fresco";
-  }
-  else if (qualidadeAr < 220) {
-    informacao = "Pouco poluido";
-  }
-  else if (qualidadeAr < 450) {
-    informacao = "Bem poluido";
-  }
-  else {
-    informacao = "Muito poluido";
-  }
-  
-}
+class Temperatura: public Sensor {
+
+  public:
+
+    Temperatura() :
+
+      Sensor() {
+
+      nomeTabela = "SensorTemp";
+
+      nomeSensor = "Temperatura";
+      
+    }
+
+    void construirInformacoes();
+    void leituraSensor();
+
+  private:
+
+    float temperature;
+    float temperaturebmp180;
+
+    sensors_event_t event;
+    
+};
+
+#endif
 
 
 

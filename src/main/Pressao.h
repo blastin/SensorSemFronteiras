@@ -16,37 +16,30 @@
 
 */
 
-#ifndef SENSOR_PRESSAO_TEMPERATURA_CLASSE_H
-#define SENSOR_PRESSAO_TEMPERATURA_CLASSE_H
+#ifndef SENSOR_PRESSAO_CLASSE_H
+#define SENSOR_PRESSAO_CLASSE_H
 
 #include "Sensor.h"
+#include "modulo_dht_bmp.h"
 
-class PressaoTemperatura: public Sensor {
+class Pressao: public Sensor {
 
   public:
 
-    PressaoTemperatura() :
-
+    Pressao() :
       Sensor() {
 
-      nomeTabela = "SensorPreTep";
+      nomeTabela = "SensorPressao";
 
-      nomeSensor = "Pressao e Temperatura";
-
-      setupPressaoTemperatura();
-
+      nomeSensor = "Pressao";
+      
     }
 
     void construirInformacoes();
     void leituraSensor();
 
   private:
-
-    void setupPressaoTemperatura();
-    float humidity;
-    float temperature;
-    float seaLevelPressure;
-
+    sensors_event_t event;
 };
 
 #endif

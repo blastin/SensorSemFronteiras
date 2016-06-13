@@ -1,4 +1,3 @@
-
 /*
     This file is part of S.S.F.
     This S.S.F is free software: you can redistribute it and/or modify
@@ -13,33 +12,34 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     @author Modelo Abstrato : Jefferson Lisboa
-    @author Medida do sensor: Mirella de Medeiros e Ana Souza
+    @author Medida do sensor: Arthur Ladislau Pereira
 
 */
 
-#include "QualidadeDoAr.h"
+#include "UmidadeAr.h"
 
-void QualidadeDoAr::leituraSensor() {
-  qualidadeAr = analogRead(porta);
+
+void UmidadeAr::leituraSensor() {
+
+  humidity = dht.readHumidity();
 }
 
-void QualidadeDoAr::construirInformacoes() {
-  
-  if (qualidadeAr < 88) {
-    informacao = "Ar fresco";
+void UmidadeAr::construirInformacoes() {
+
+  bmp.getEvent(&event);
+
+  if (event.pressure) {
+
+    if (humidity < 40)
+      informacao = "muito seco";
+    else if (humidity < 60)
+      informacao = "ideal";
+    else if (humidity < 70)
+      informacao = "umido";
+    else if (humidity < 70)
+      informacao = "umido demais";
+      
   }
-  else if (qualidadeAr < 220) {
-    informacao = "Pouco poluido";
-  }
-  else if (qualidadeAr < 450) {
-    informacao = "Bem poluido";
-  }
-  else {
-    informacao = "Muito poluido";
-  }
-  
+
 }
-
-
-
 
