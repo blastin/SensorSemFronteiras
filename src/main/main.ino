@@ -19,65 +19,65 @@
 #include "Sensores.h"
 
 Sensor * luminosidade;
-Sensor * qualidadeDoAr;
+//Sensor * qualidadeDoAr;
 //Sensor * aceleracao;
-Sensor * umidadeDoSolo;
-Sensor * pressao;
-Sensor * temperatura;
-Sensor * umidadeAr;
+//Sensor * umidadeDoSolo;
+//Sensor * pressao;
+//Sensor * temperatura;
+//Sensor * umidadeAr;
 
 void setup() {
 
   // initialize serial communication at 9600 bits per second:
   Serial.begin(9600);
-  
-  setupDHT_BMP();
+
+  //setupDHT_BMP();
 
   luminosidade          = new Luminosidade(A4);
-  qualidadeDoAr         = new QualidadeDoAr(A5);
+  //qualidadeDoAr         = new QualidadeDoAr(A5);
   //aceleracao            = new Aceleracao();
-  umidadeDoSolo         = new UmidadeDoSolo(A0);
-  pressao               = new Pressao();
-  temperatura           = new Temperatura();
-  umidadeAr             = new UmidadeAr();
+  //umidadeDoSolo         = new UmidadeDoSolo(A0);
+  //pressao               = new Pressao();
+  //temperatura           = new Temperatura();
+  //umidadeAr             = new UmidadeAr();
 
 }
 
 void loop() {
-  
+
   Serial.flush();
-  
+
   /*Leitura analógica e/ou digital de cada sensor.*/
   leitura(luminosidade);
-  leitura(qualidadeDoAr);
+  //leitura(qualidadeDoAr);
   //leitura(aceleracao);
-  leitura(umidadeDoSolo);
-  leitura(pressao);
-  leitura(temperatura);
-  leitura(umidadeAr);
+  //leitura(umidadeDoSolo);
+  //leitura(pressao);
+  //leitura(temperatura);
+  //leitura(umidadeAr);
 
   /* Calcular medida,
      especificar unidade
      detalhar informações adicionais do ambiente
   */
   construirInformacoes(luminosidade);
-  construirInformacoes(qualidadeDoAr);
+  //construirInformacoes(qualidadeDoAr);
   //construirInformacoes(aceleracao);
-  construirInformacoes(umidadeDoSolo);
-  construirInformacoes(pressao);
-  construirInformacoes(temperatura);
-  construirInformacoes(umidadeAr);
+  //construirInformacoes(umidadeDoSolo);
+  //construirInformacoes(pressao);
+  //construirInformacoes(temperatura);
+  //construirInformacoes(umidadeAr);
 
   /*
      Gerar String formatada para a biblioteca MySQL inserir no banco de dados.
   */
   gerenciarQuery(luminosidade);
-  gerenciarQuery(qualidadeDoAr);
+  //gerenciarQuery(qualidadeDoAr);
   //gerenciarQuery(aceleracao);
-  gerenciarQuery(umidadeDoSolo);
-  gerenciarQuery(pressao);
-  gerenciarQuery(temperatura);
-  gerenciarQuery(umidadeAr);
+  //gerenciarQuery(umidadeDoSolo);
+  //gerenciarQuery(pressao);
+  //gerenciarQuery(temperatura);
+  //gerenciarQuery(umidadeAr);
 
 
   delay(750);

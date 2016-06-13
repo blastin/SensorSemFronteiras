@@ -26,6 +26,7 @@
 import mysql.connector
 import serial
 from optparse import OptionParser
+import re
 from time import sleep
 
 
@@ -42,7 +43,10 @@ class KoalaDatabase:
         self.config = configuration
 
         print("Tentando conectar ao banco de dados ... ")
+
         self.connection()
+
+        self.expression = re.compile('^[a-zA-Z0-9:_ ,.-]+$')
 
     def open_session_serial_arduino(self, argument):
         # type: (string) -> object
@@ -74,7 +78,6 @@ class KoalaDatabase:
                 sleep(5)
 
     def serial_data(self):
-
         while True:
             yield self.serial_arduino.readline()
 
@@ -84,33 +87,77 @@ class KoalaDatabase:
 
         for string in self.serial_data():
 
-            if string and len(string) > 0 and string.__contains__(':') and string.__contains__(','):
+            if string and string.__contains__(':') and string.__contains__(','):
 
-                string = string.replace('\n', '').replace('\r', '')
+                """
 
-                self.nomeTabela = string.split(':', 1)[0]
+                    verifica se o existe algum caractere na string
+                    verifica se a string contém ':'
+                    verifica se a string contém ','
 
-                tupla = tuple(string.split(':', 1)[1].split(','))
+                    Caso satisfaça todas essas  condições, o programa continuará
 
-                if self.nomeTabela not in self.dicionario:
-                    self.dicionario[self.nomeTabela] = None
+                """
 
-                if self.dicionario[self.nomeTabela] != tupla[1]:
-                    # verifica se na chave do dicionário especifico, já foi enviado a mesma informação para o sensor.
-                    # isso evita duplicação de informação e sobrecarga do servidor de banco de dados.
+                string = string.replace('\n', '').replace('\r', '').replace('\x00', '')
 
-                    query = "INSERT INTO " + self.nomeTabela + " (nome,informacao) VALUES (%s,%s)"
+                """
 
-		    print("MySQL =: tabela: %s\tNome Sensor: %s\tInformação: %s" % (self.nomeTabela, tupla[0], tupla[1]))
+                        Filtra  alguns caracteres especiais da porta Serial
 
-                    self.cursor.execute(query, tupla)
+                """
 
-                    # Make sure data is committed to the database
-                    self.conexao.commit()
+                if self.ismatch(string) is not None:
 
-                    self.dicionario[self.nomeTabela] = str(tupla[1])
+                    """
 
-                    sleep(1)
+                        verifica se a string contém apenas numerais,letras,virgulas,ponto e underline
+
+                    """
+
+                    self.nomeTabela = string.split(':', 1)[0]
+
+                    tupla = tuple(string.split(':', 1)[1].split(','))
+
+                    if self.nomeTabela not in self.dicionario:
+
+                        print(
+                            "Tabela %s foi adicionado ao sistema para melhorar o custo de fluxo de informações" %
+                            self.nomeTabela
+                        )
+
+                        self.dicionario[self.nomeTabela] = None
+                        """
+                        
+                            dicionario é uma estrutura de dados que mantém o nome de cada tabela salva para evitar
+                            envio de informações duplicadas. Isso diminui o custo de processamento e  gasto de
+                            dados de internet para o banco de dados.
+
+                            (excelente medida para internet movéis roteadas)
+
+                        """
+
+                    if self.dicionario[self.nomeTabela] != tupla[1]:
+                        """
+
+                        verifica se na chave do dicionário especifico, já foi enviado a mesma informação para o sensor.
+                        isso evita duplicação de informação e sobrecarga do servidor de banco de dados.
+
+                        """
+                        query = "INSERT INTO " + self.nomeTabela + " (nome,informacao) VALUES (%s,%s)"
+
+                        print(
+                            "MySQL =: tabela: %s\tNome Sensor: %s\tInformação: %s" % (
+                                self.nomeTabela, tupla[0], tupla[1]))
+
+                        self.cursor.execute(query, tupla)
+
+                        # Make sure data is committed to the database
+                        self.conexao.commit()
+
+                        self.dicionario[self.nomeTabela] = str(tupla[1])
+
+                        sleep(1)
 
     def disconnect(self):
 
@@ -140,13 +187,15 @@ class KoalaDatabase:
                 sleep(5)
                 print("Tentando reconectar")
 
+    def ismatch(self, string):
+        return self.expression.match(string)
+
 
 if __name__ == "__main__":
 
     print("Iniciando koala python Serial read ...")
 
     config = {
-
         'user': 'arduino',
         'password': 'zn9aeuSusI',
         'host': 'localhost',
