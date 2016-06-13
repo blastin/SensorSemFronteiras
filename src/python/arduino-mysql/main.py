@@ -31,6 +31,7 @@ from time import sleep
 
 
 class KoalaDatabase:
+
     def __init__(self, configuration):
 
         self.conexao = None
@@ -52,6 +53,7 @@ class KoalaDatabase:
         # type: (string) -> object
 
         while True:
+
             try:
 
                 print("Tentando abrir device do arduino ... ")
@@ -59,25 +61,36 @@ class KoalaDatabase:
                 self.dev = open(argument, 'r')
 
                 print("device aberto com sucesso.!")
+
                 while True:
+
                     try:
+
                         print("Tentando abrir sessão com o serial do arduino ... ")
                         self.serial_arduino = serial.Serial(self.dev.name, 9600)
+
                         print(self.serial_arduino)
                         print("Sessão foi aberta com sucesso.!")
+
                         break
+
                     except serial.serialutil.SerialException as msgerror:
+
                         print(msgerror)
                         print("Tentarei novamente abrir a sessão com arduino daqui a 5 segundos ... ")
+
                         sleep(5)
                 break
 
             except IOError as msgerror:
+
                 print(msgerror)
                 print("Tentarei novamente abrir device do arduino daqui a 5 segundos ... ")
+
                 sleep(5)
 
     def serial_data(self):
+
         while True:
             yield self.serial_arduino.readline()
 
@@ -87,15 +100,11 @@ class KoalaDatabase:
 
         for string in self.serial_data():
 
-            if string and string.__contains__(':') and string.__contains__(','):
+            if string:
 
                 """
 
                     verifica se o existe algum caractere na string
-                    verifica se a string contém ':'
-                    verifica se a string contém ','
-
-                    Caso satisfaça todas essas  condições, o programa continuará
 
                 """
 
@@ -107,11 +116,15 @@ class KoalaDatabase:
 
                 """
 
-                if self.ismatch(string) is not None:
+                if self.ismatch(string) is not None and string.__contains__(':') and string.__contains__(','):
 
                     """
 
                         verifica se a string contém apenas numerais,letras,virgulas,ponto e underline
+                        verifica se a string contém ':'
+                        verifica se a string contém ','
+
+                        Caso satisfaça todas essas  condições, o programa continuará
 
                     """
 
@@ -122,13 +135,14 @@ class KoalaDatabase:
                     if self.nomeTabela not in self.dicionario:
 
                         print(
-                            "Tabela %s foi adicionado ao sistema para melhorar o custo de fluxo de informações" %
+                            "Tabela %s foi adicionado ao sistema de pesquisa para diminuir o de fluxo "
+                            "de informações de envio" %
                             self.nomeTabela
                         )
 
                         self.dicionario[self.nomeTabela] = None
                         """
-                        
+
                             dicionario é uma estrutura de dados que mantém o nome de cada tabela salva para evitar
                             envio de informações duplicadas. Isso diminui o custo de processamento e  gasto de
                             dados de internet para o banco de dados.
@@ -170,7 +184,9 @@ class KoalaDatabase:
     def connection(self):
 
         while True:
+
             try:
+
                 print(self.config)
 
                 self.conexao = mysql.connector.connect(**self.config)
@@ -188,6 +204,7 @@ class KoalaDatabase:
                 print("Tentando reconectar")
 
     def ismatch(self, string):
+
         return self.expression.match(string)
 
 
@@ -212,19 +229,30 @@ if __name__ == "__main__":
     koala.open_session_serial_arduino(args[0])
 
     while True:
+
         try:
             koala.send_query()
+
         except mysql.connector.errors.InterfaceError as e:
             print(e)
             koala.connection()
+
         except mysql.connector.errors.ProgrammingError as e:
             print(e)
+
             sleep(2)
-            print("Deletando a key : %s" % koala.nomeTabela)
+
+            print(
+                "Tabela %s foi removida do sistema para diminuir o de custo de processamento de lixos"
+                % koala.nomeTabela
+            )
+
             del koala.dicionario[koala.nomeTabela]
+
         except serial.serialutil.SerialException as e:
             print(e)
             koala.open_session_serial_arduino(args[0])
+
         except KeyboardInterrupt:
             koala.disconnect()
             break
