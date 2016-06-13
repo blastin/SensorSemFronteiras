@@ -6,7 +6,7 @@
     Objetivo : Abrir sessão com banco de dados e com o arquivo `device` da placa arduino, para enviar informações
     de cada sensor ao servidor.
 
-    Copyright (C) <2016>  <Jefferson@blastin>
+    Copyright (C) <2016>  <Jefferson Lisboa>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

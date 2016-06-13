@@ -4,35 +4,8 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-    <style>
-        table {
-            width: 50%;
-        }
-
-        table, th, td {
-            border: 1px solid black;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            padding: 1px;
-            text-align: left;
-        }
-
-        table#t01 tr:nth-child(even) {
-            background-color: #eee;
-        }
-
-        table#t01 tr:nth-child(odd) {
-            background-color: #ffe;
-        }
-
-        table#t01 th {
-            background-color: seagreen;
-            color: white;
-        }
-    </style>
-
+    <link rel="stylesheet" type="text/css" href="css/estilo.css">
+    
     <?php
 
     $page = $_SERVER['PHP_SELF'];
@@ -46,12 +19,6 @@
     $sql_names = "SHOW TABLES";
     $sql_tempo = "SELECT tempo FROM php.SensorLumi ORDER BY tempo DESC LIMIT 1";
 
-    $sql_lumi = "SELECT  nome, informacao FROM php.SensorLumi ORDER BY tempo DESC LIMIT 1";
-    $sql_preTep = "SELECT  nome, informacao FROM php.SensorPreTep ORDER BY tempo DESC LIMIT 1";
-    $sql_aceleracao = "SELECT  nome, informacao FROM php.SensorAcel ORDER BY tempo DESC LIMIT 1";
-    $sql_qualidadear = "SELECT  nome, informacao FROM php.SensorQuAr ORDER BY tempo DESC LIMIT 1";
-    $sql_umidadesolo = "SELECT  nome, informacao FROM php.SensorUmidadeSolo ORDER BY tempo DESC LIMIT 1";
-
     ?>
 
     <meta http-equiv="refresh" content="<?php echo $sec ?>;URL='<?php echo $page ?>'">
@@ -59,7 +26,9 @@
 </head>
 <body>
 
-<table id="t01">
+<table>
+
+    <caption>Analisando informações dos sensores</caption>
 
     <?php
 
@@ -86,42 +55,49 @@
 
     if ($tempo_resultado->num_rows > 0) {
 
+        echo "<thread>";
         echo "<tr>";
 
-        echo "<th> Last Update </th>";
+        echo "<th colspan=\"2\">Last Update</th>";
 
         $row = $tempo_resultado->fetch_assoc();
 
         $tempo = $row["tempo"];
 
-	echo "<th>" . $tempo ." </th>";
+        echo "<th colspan=\"1\">" . $tempo . "</th>";
 
-	echo "</tr>";
+        echo "</tr>";
+        echo "</thread>";
 
-	$k = 0;	
+        echo "<tbody>";
 
-	while($table = $tabelaName_resultado->fetch_array()) {
-		echo "<tr>";            
+        while ($table = $tabelaName_resultado->fetch_array()) {
 
-		echo "<th>" . $table[0] . "</th>";
+            echo "<tr>";
 
-		$result = $resultados[$k];
+            $sql = "SELECT  nome, informacao FROM php." . $table[0] . " ORDER BY tempo DESC LIMIT 1";
 
-		$k = $k + 1;
+            $result = $conn->query($sql);
 
-		if ($result->num_rows > 0) {
+            if ($result->num_rows > 0) {
 
                 $row = $result->fetch_assoc();
 
-                echo "<td>" . $row["informacao"] . "</td>";
+                echo "<th colspan=\"2\">" . $row["nome"] . "</th>";
+                echo "<td colspan=\"1\">" . $row["informacao"] . "</td>";
 
-            	}else{
-			echo "<td> </td>";												
-			}
+            } else {
+                echo "<th colspan=\"2\">" . $table[0] . "</th>";
+                echo "<td colspan=\"1\"> </td>";
+            }
 
-		echo "</tr>";
+            echo "</tr>";
         }
 
+        echo "</tbody>";
+
+    } else {
+        echo '<th>Sem informações dos sensores.</th>';
     }
 
     $conn->close();
