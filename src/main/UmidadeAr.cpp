@@ -31,13 +31,13 @@ void UmidadeAr::construirInformacoes() {
   if (event.pressure) {
 
     if (humidity < 40)
-      informacao = "muito seco";
+      informacao = "Ar muito seco";
     else if (humidity < 60)
-      informacao = "ideal";
+      informacao = "Ar ideal";
     else if (humidity < 70)
-      informacao = "umido";
+      informacao = "Boa umidade do ar";
     else if (humidity < 70)
-      informacao = "umido demais";
+      informacao = "Umidade relativamente alta";
       
   }
 

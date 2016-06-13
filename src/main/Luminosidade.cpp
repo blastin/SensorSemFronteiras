@@ -31,17 +31,17 @@ void Luminosidade::construirInformacoes() {
   float medida = leitura * (5.0 / 1023.0);
   
   if (medida > (1.76 - FATOR_AMBIENTAL))
-    informacao = "alta luminosidade";
+    informacao = "Alta luminosidade";
   else if (medida > (0.98 - FATOR_AMBIENTAL / 2))
-    informacao = "boa luminosidade";
+    informacao = "Boa luminosidade";
   else if (medida > (0.61 - FATOR_AMBIENTAL / 3))
-    informacao = "luminosidade regular";
+    informacao = "Luminosidade regular";
   else if (medida > (0.39 - FATOR_AMBIENTAL / 4))
-    informacao = "pessima luminosidade";
+    informacao = "Pessima luminosidade";
   else if (medida > (0.199 - FATOR_AMBIENTAL / 5))
-    informacao = "ambiente escuro";
+    informacao = "Ambiente escuro";
   else
-    informacao = "ambiente sem luminosidade";
+    informacao = "Ambiente sem luminosidade";
 
 }
 

@@ -28,25 +28,25 @@ void UmidadeDoSolo::leituraSensor() {
 void UmidadeDoSolo::construirInformacoes() {
 
   int umidade = map(leitura, 1023, 0, 0, 200);
-  
+
   if (umidade >= 25) {
 
-    informacao = "Alta Umidade";
+    informacao = "Alta umidade do solo";
 
   } else if (umidade >= 10) {
 
-    informacao = "Media Umidade";
+    informacao = "Media umidade do solo";
 
-  } else if (umidade>= 4){
+  } else if (umidade >= 4) {
 
-    informacao = "Baixa Umidade";
+    informacao = "Baixa umidade do solo";
 
-  }else{
-    
-    informacao = "Sem Umidade";
-    
+  } else {
+
+    informacao = "Solo seco ou degradavel";
+
   }
-  
+
 }
 
 

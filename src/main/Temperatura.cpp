@@ -35,13 +35,13 @@ void Temperatura::construirInformacoes() {
       temperaturebmp180 = (temperaturebmp180 + temperature) / 2;
       
     if (temperaturebmp180 <= 23)
-      informacao = "friozinho";
+      informacao = "Frio";
     else if (temperaturebmp180 <= 30)
       informacao = "agradavel";
     else if (temperaturebmp180 <= 35)
-      informacao = "quente";
+      informacao = "Quente";
     else if (temperaturebmp180 > 40)
-      informacao  = "quente demais";
+      informacao  = "Muito quente";
 
   }
 
