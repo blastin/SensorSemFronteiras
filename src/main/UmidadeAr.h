@@ -31,7 +31,7 @@ class UmidadeAr: public Sensor {
 
       nomeTabela = "SensorUmidadeAr";
 
-      nomeSensor = "UmidadeAr";
+      nomeSensor = "Umidade do Ar";
 
     }
 

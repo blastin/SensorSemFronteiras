@@ -101,10 +101,9 @@ class KoalaDatabase:
 
                     query = "INSERT INTO " + self.nomeTabela + " (nome,informacao) VALUES (%s,%s)"
 
-                    self.cursor.execute(query, tupla)
+		    print("MySQL =: tabela: %s\tNome Sensor: %s\tInformação: %s" % (self.nomeTabela, tupla[0], tupla[1]))
 
-                    print(
-                        "MySQL =: tabela: %s\tNome Sensor: %s\tInformação: %s" % (self.nomeTabela, tupla[0], tupla[1]))
+                    self.cursor.execute(query, tupla)
 
                     # Make sure data is committed to the database
                     self.conexao.commit()

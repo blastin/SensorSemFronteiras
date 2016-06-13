@@ -32,7 +32,7 @@ class UmidadeDoSolo: public Sensor {
 
       nomeTabela = "SensorUmidadeSolo";
 
-      nomeSensor = "umidadeSolo";
+      nomeSensor = "Umidade do Solo";
 
     }
 
