@@ -24,14 +24,13 @@
 """
 
 import mysql.connector
+import re
 import serial
 from optparse import OptionParser
-import re
 from time import sleep
 
 
-class KoalaDatabase:
-
+class KoalaInterpretador:
     def __init__(self, configuration):
 
         self.conexao = None
@@ -43,13 +42,13 @@ class KoalaDatabase:
         self.dicionario = {}
         self.config = configuration
 
+        self.expression = re.compile('^[a-zA-Z0-9:_ ,.-]+$')
+
         print("Tentando conectar ao banco de dados com as seguintes configurações ... ")
 
         print(self.config)
 
         self.connection()
-
-        self.expression = re.compile('^[a-zA-Z0-9:_ ,.-]+$')
 
     def open_session_serial_arduino(self, argument):
         # type: (string) -> object
@@ -135,7 +134,6 @@ class KoalaDatabase:
                     tupla = tuple(string.split(':', 1)[1].split(','))
 
                     if self.nomeTabela not in self.dicionario:
-
                         print(
                             "Tabela %s foi adicionado ao sistema de pesquisa para diminuir o de fluxo "
                             "de informações de envio" %
@@ -224,7 +222,7 @@ if __name__ == "__main__":
     p = OptionParser("usage: tail.py file")
     (options, args) = p.parse_args()
 
-    koala = KoalaDatabase(config)
+    koala = KoalaInterpretador(config)
 
     koala.open_session_serial_arduino(args[0])
 
