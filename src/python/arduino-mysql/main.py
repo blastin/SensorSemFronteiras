@@ -42,7 +42,7 @@ class KoalaInterpretador:
         self.dicionario = {}
         self.config = configuration
 
-        self.expression = re.compile('^[a-zA-Z0-9:_ ,.-]+$')
+        self.expression = re.compile('^[a-zA-Z0-9:_ (),.-]+$')
 
         print("Tentando conectar ao banco de dados com as seguintes configurações ... ")
 
@@ -171,7 +171,7 @@ class KoalaInterpretador:
 
                         self.dicionario[self.nomeTabela] = str(tupla[1])
 
-                        sleep(1)
+                        sleep(0.250)
 
     def disconnect(self):
 

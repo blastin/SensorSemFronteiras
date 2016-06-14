@@ -32,7 +32,7 @@ void Pressao::construirInformacoes() {
     pressao = pressao / 760; //transforma em atm
      
     if (pressao > 0.88 && pressao <= 1.2) {
-      informacao = "Zona próxima ao nivel do mar";
+      informacao = "Zona proxima ao nivel do mar";
     } else if (pressao > 1.2 && pressao <= 2.2) {
       informacao = "Zona um pouco afastada do nivel do mar";
     } else if (pressao > 2.2 && pressao <= 3.2) {
@@ -40,6 +40,10 @@ void Pressao::construirInformacoes() {
     } else if (pressao > 3.2) {
       informacao = "Zona de alta pressao";
     }
+
+    informacao.concat(". (");
+    informacao.concat(pressao);
+    informacao.concat(" atm)");
   }
 
 }

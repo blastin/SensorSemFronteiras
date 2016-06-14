@@ -20,38 +20,57 @@
 #include "Aceleracao.h"
 #include <math.h>
 
+#define CONST_VARIACAO 10
+
 void Aceleracao::leituraSensor() {
-  
+
   calcular(x, y, z);
-  
+
 }
 
 void Aceleracao::construirInformacoes() {
 
   float variacaoX, variacaoY, variacaoZ;
 
-  informacao = "O Equipamento modificou os eixos: ";
-  
   variacaoX = fabs(x - xantigo);
   variacaoY = fabs(y - yantigo);
   variacaoZ = fabs(z - zantigo);
 
-  if ( variacaoX > 3 ) {
-    informacao.concat(F("x"));
+  if (variacaoX > CONST_VARIACAO && variacaoY < CONST_VARIACAO && variacaoZ < CONST_VARIACAO) {
+
+    if (x > xantigo) {
+      informacao = "Prototipo esta inclinado positivamente no eixo x";
+    } else {
+      informacao = "Protitipo esta inclinado negativamente no eixo x";
+    }
+
     xantigo = x;
-  }
 
-  informacao.concat(F(" "));
-  if ( variacaoY > 3 ) {
-    informacao.concat(F("y"));
+  } else if (variacaoY > CONST_VARIACAO && variacaoX < CONST_VARIACAO && variacaoZ < CONST_VARIACAO) {
+
+    if (y > yantigo) {
+      informacao = "Prototipo esta inclinado positivamente no eixo y";
+    } else {
+      informacao = "Prototipo esta inclinado negativamente no eixo y";
+    }
+
     yantigo = y;
+
+  } else if (variacaoX > CONST_VARIACAO / 2 && variacaoY > CONST_VARIACAO / 2 && variacaoZ > CONST_VARIACAO / 2) {
+
+    informacao = "O prototipo esta em um ambiente irregular";
+
+    xantigo = x;
+    yantigo = y;
+    zantigo = z;
+
+  } else if (variacaoX < CONST_VARIACAO && variacaoY < CONST_VARIACAO && variacaoZ > CONST_VARIACAO) {
+    zantigo = z;
+  } else {
+    informacao = "Prototipo estavel";
   }
 
-  informacao.concat(F(" "));
-  if ( variacaoZ > 3 ) {
-    informacao.concat(F("z"));
-    zantigo = z;
-  }
+
 
 }
 

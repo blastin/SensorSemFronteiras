@@ -25,13 +25,13 @@ void QualidadeDoAr::leituraSensor() {
 
 void QualidadeDoAr::construirInformacoes() {
   
-  if (qualidadeAr < 88) {
+  if (qualidadeAr < 90) {
     informacao = "Ar fresco";
   }
-  else if (qualidadeAr < 220) {
+  else if (qualidadeAr < 450) {
     informacao = "Pouco poluido";
   }
-  else if (qualidadeAr < 450) {
+  else if (qualidadeAr < 950) {
     informacao = "Bem poluido";
   }
   else {

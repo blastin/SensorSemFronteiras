@@ -43,6 +43,10 @@ void Temperatura::construirInformacoes() {
     else if (temperaturebmp180 > 40)
       informacao  = "Muito quente";
 
+     informacao.concat(". ( ");
+     informacao.concat(temperaturebmp180);
+     informacao.concat(" C)");
+     
   }
 
 }
