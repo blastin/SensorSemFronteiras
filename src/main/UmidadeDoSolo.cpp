@@ -27,17 +27,17 @@ void UmidadeDoSolo::leituraSensor() {
 
 void UmidadeDoSolo::construirInformacoes() {
 
-  int umidade = map(leitura, 1023, 0, 0, 200);
+  int porcentagem_umidade = map(leitura, 1023, 0, 0, 100);
 
-  if (umidade >= 25) {
+  if (porcentagem_umidade >= 25) {
 
     informacao = "Alta umidade do solo";
 
-  } else if (umidade >= 10) {
+  } else if (porcentagem_umidade >= 10) {
 
     informacao = "Media umidade do solo";
 
-  } else if (umidade >= 4) {
+  } else if (porcentagem_umidade >= 4) {
 
     informacao = "Baixa umidade do solo";
 
