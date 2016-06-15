@@ -30,7 +30,7 @@
 
     <caption><H2>Analisando informações dos sensores</H2></caption>
 
-				<br>
+    <br>
 
     <?php
 
@@ -73,25 +73,29 @@
 
     while ($table = $tabelaName_resultado->fetch_array()) {
 
-        echo "<tr>";
+        if($table[0] != "SensorUpdate") {
 
-        $sql = "SELECT  nome, informacao FROM " . $table[0] . " ORDER BY tempo DESC LIMIT 1";
+            echo "<tr>";
 
-        $result = $conn->query($sql);
+            $sql = "SELECT  nome, informacao FROM " . $table[0] . " ORDER BY tempo DESC LIMIT 1";
 
-        if ($result->num_rows > 0) {
+            $result = $conn->query($sql);
 
-            $row = $result->fetch_assoc();
+            if ($result->num_rows > 0) {
 
-            echo "<th colspan=\"2\">" . $row["nome"] . "</th>";
-            echo "<td colspan=\"1\">" . $row["informacao"] . "</td>";
+                $row = $result->fetch_assoc();
 
-        } else {
-            echo "<th colspan=\"2\">" . $table[0] . "</th>";
-            echo "<td colspan=\"1\"> </td>";
+                echo "<th colspan=\"2\">" . $row["nome"] . "</th>";
+                echo "<td colspan=\"1\">" . $row["informacao"] . "</td>";
+
+            } else {
+                echo "<th colspan=\"2\">" . $table[0] . "</th>";
+                echo "<td colspan=\"1\"> </td>";
+            }
+
+            echo "</tr>";
         }
 
-        echo "</tr>";
     }
 
     echo "</tbody>";
