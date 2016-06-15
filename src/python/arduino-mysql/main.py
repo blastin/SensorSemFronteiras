@@ -33,8 +33,6 @@ from time import sleep
 class KoalaInterpretador:
     def __init__(self, configuration):
 
-        self.modular = 0
-
         self.conexao = None
         self.cursor = None
         self.nomeTabela = None
@@ -99,13 +97,11 @@ class KoalaInterpretador:
 
     def update_time(self):
 
-        tabelaupdatequery = "INSERT INTO TimeUpdate (void) values(%d)" % (self.modular % 2)
+        tabelaupdatequery = "INSERT INTO TimeUpdate (void) values(1)"
 
         self.cursor.execute(tabelaupdatequery)
         self.conexao.commit()
-
-        self.modular += 1
-
+        
         sleep(0.250)
 
     def send_query(self):
