@@ -16,7 +16,7 @@
     $db_pass = getenv('OPENSHIFT_MYSQL_DB_PASSWORD');
     $db_name = 'php'; //this is the database I created in PhpMyAdmin
 
-    $sql_names = "SHOW TABLES";
+    $sql_names = "SHOW TABLES LIKE 'S%'";
     $sql_tempo = "SELECT tempo FROM SensorUpdate ORDER BY tempo DESC LIMIT 1";
 
     ?>
@@ -73,28 +73,25 @@
 
     while ($table = $tabelaName_resultado->fetch_array()) {
 
-        if($table[0] != "SensorUpdate") {
+        echo "<tr>";
 
-            echo "<tr>";
+        $sql = "SELECT  nome, informacao FROM " . $table[0] . " ORDER BY tempo DESC LIMIT 1";
 
-            $sql = "SELECT  nome, informacao FROM " . $table[0] . " ORDER BY tempo DESC LIMIT 1";
+        $result = $conn->query($sql);
 
-            $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
 
-            if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
 
-                $row = $result->fetch_assoc();
+            echo "<th colspan=\"2\">" . $row["nome"] . "</th>";
+            echo "<td colspan=\"1\">" . $row["informacao"] . "</td>";
 
-                echo "<th colspan=\"2\">" . $row["nome"] . "</th>";
-                echo "<td colspan=\"1\">" . $row["informacao"] . "</td>";
-
-            } else {
-                echo "<th colspan=\"2\">" . $table[0] . "</th>";
-                echo "<td colspan=\"1\"> </td>";
-            }
-
-            echo "</tr>";
+        } else {
+            echo "<th colspan=\"2\">" . $table[0] . "</th>";
+            echo "<td colspan=\"1\"> </td>";
         }
+
+        echo "</tr>";
 
     }
 
