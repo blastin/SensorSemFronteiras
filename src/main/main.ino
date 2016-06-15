@@ -56,8 +56,7 @@ void loop() {
   leitura(temperatura);
   leitura(umidadeAr);
 
-  /* Calcular medida,
-     especificar unidade
+  /*
      detalhar informações adicionais do ambiente
   */
   construirInformacoes(luminosidade);
@@ -69,7 +68,7 @@ void loop() {
   construirInformacoes(umidadeAr);
 
   /*
-     Gerar String formatada para a biblioteca MySQL inserir no banco de dados.
+     Gerar String formatada para a leitura da maquina externa.
   */
   gerenciarQuery(luminosidade);
   gerenciarQuery(qualidadeDoAr);
