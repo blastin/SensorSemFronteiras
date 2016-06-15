@@ -33,6 +33,8 @@ from time import sleep
 class KoalaInterpretador:
     def __init__(self, configuration):
 
+        self.modular = 0
+
         self.conexao = None
         self.cursor = None
         self.nomeTabela = None
@@ -95,6 +97,17 @@ class KoalaInterpretador:
         while True:
             yield self.serial_arduino.readline()
 
+    def update_time(self):
+
+        tabelaupdatequery = "INSERT INTO SensorUpdate (void) values(%d)" % (self.modular % 2)
+
+        self.cursor.execute(tabelaupdatequery)
+        self.conexao.commit()
+
+        self.modular += 1
+
+        sleep(0.250)
+
     def send_query(self):
 
         print("Iniciando envio de informações de cada sensor para o banco de dados")
@@ -102,7 +115,6 @@ class KoalaInterpretador:
         for string in self.serial_data():
 
             if string:
-
                 """
 
                     verifica se o existe algum caractere na string
@@ -110,7 +122,6 @@ class KoalaInterpretador:
                 """
 
                 string = string.replace('\n', '').replace('\r', '').replace('\x00', '')
-
                 """
 
                         Filtra  alguns caracteres especiais da porta Serial
@@ -118,7 +129,6 @@ class KoalaInterpretador:
                 """
 
                 if self.ismatch(string) is not None and string.__contains__(':') and string.__contains__(','):
-
                     """
 
                         verifica se a string contém apenas numerais,letras,virgulas,ponto e underline
@@ -158,7 +168,14 @@ class KoalaInterpretador:
                         isso evita duplicação de informação e sobrecarga do servidor de banco de dados.
 
                         """
-                        query = "INSERT INTO " + self.nomeTabela + " (nome,informacao) VALUES (%s,%s)"
+
+                        query = 'INSERT INTO ' + self.nomeTabela + ' (nome,informacao) VALUES (%s,%s)'
+                        """
+
+                            cria uma query com informações do sensor lido pela porta serial do arduino e atualiza
+                            a tabela de atualização global dos sensores.
+
+                        """
 
                         print(
                             "MySQL =: tabela: %s\tNome Sensor: %s\tInformação: %s" % (
@@ -171,7 +188,12 @@ class KoalaInterpretador:
 
                         self.dicionario[self.nomeTabela] = str(tupla[1])
 
-                        sleep(0.250)
+                        self.update_time()
+                        """
+
+                            Enviar informação para o banco de dados que houve atualização de algum sensor
+
+                        """
 
     def disconnect(self):
 

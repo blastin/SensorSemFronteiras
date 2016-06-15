@@ -3,13 +3,14 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.2.97.130:3306
--- Tempo de Geração: 13/06/2016 às 23:59
+-- Tempo de Geração: 15/06/2016 às 01:03
 -- Versão do servidor: 5.5.45
 -- Versão do PHP: 5.3.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "-03:00";
+SET GLOBAL time_zone = "-03:00";
 SET GLOBAL event_scheduler =  "ON"
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -50,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `SensorLumi` (
   `unidade_medida` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
   `informacao` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=116 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -66,8 +67,7 @@ CREATE TABLE IF NOT EXISTS `SensorPressao` (
   `unidade_medida` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
   `informacao` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
-
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -83,8 +83,7 @@ CREATE TABLE IF NOT EXISTS `SensorQuAr` (
   `unidade_medida` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
   `informacao` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
-
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -100,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `SensorTemp` (
   `unidade_medida` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
   `informacao` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -116,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `SensorUmidadeAr` (
   `unidade_medida` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
   `informacao` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -132,8 +131,20 @@ CREATE TABLE IF NOT EXISTS `SensorUmidadeSolo` (
   `unidade_medida` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
   `informacao` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `SensorUpdate`
+--
+
+CREATE TABLE IF NOT EXISTS `SensorUpdate` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `void` smallint(2) NOT NULL,
+  `tempo` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 DELIMITER $$
 --
@@ -152,6 +163,8 @@ CREATE DEFINER=`adminSFmAMTp`@`127.2.97.130` EVENT `umidade_solo_limpeza` ON SCH
 CREATE DEFINER=`adminSFmAMTp`@`127.2.97.130` EVENT `temperatura_limpeza` ON SCHEDULE EVERY 10 MINUTE STARTS '2016-06-13 00:00:00' ON COMPLETION PRESERVE ENABLE COMMENT 'Limpa a tabela do sensor de temperatura a cada 10 minutos' DO truncate php.`SensorTemp`$$
 
 CREATE DEFINER=`adminSFmAMTp`@`127.2.97.130` EVENT `umidade_do_ar_limpeza` ON SCHEDULE EVERY 10 MINUTE STARTS '2016-06-13 00:00:00' ON COMPLETION PRESERVE ENABLE COMMENT 'Limpa a tabela do sensor de umidade do ar a cada 10 minutos' DO truncate php.`SensorUmidadeAr`$$
+
+CREATE DEFINER=`adminSFmAMTp`@`127.2.97.130` EVENT `time_stamp_limpeza` ON SCHEDULE EVERY 10 MINUTE STARTS '2016-06-14 22:02:36' ON COMPLETION PRESERVE ENABLE COMMENT 'Limpa a tabela do sensor de time_stamp a cada 10 minutos' DO truncate php.`SensorUpdate`$$
 
 DELIMITER ;
 

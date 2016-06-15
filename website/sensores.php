@@ -5,11 +5,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
     <link rel="stylesheet" type="text/css" href="css/estilo.css">
-    
+
     <?php
 
     $page = $_SERVER['PHP_SELF'];
-    $sec = "3";
+    $sec = "2";
 
     $db_host = getenv('OPENSHIFT_MYSQL_DB_HOST'); //sample host 
     $db_user = getenv('OPENSHIFT_MYSQL_DB_USERNAME');
@@ -17,7 +17,7 @@
     $db_name = 'php'; //this is the database I created in PhpMyAdmin
 
     $sql_names = "SHOW TABLES";
-    $sql_tempo = "SELECT tempo FROM php.SensorLumi ORDER BY tempo DESC LIMIT 1";
+    $sql_tempo = "SELECT tempo FROM SensorUpdate ORDER BY tempo DESC LIMIT 1";
 
     ?>
 
@@ -28,7 +28,9 @@
 
 <table>
 
-    <caption>Analisando informações dos sensores</caption>
+    <caption><H2>Analisando informações dos sensores</H2></caption>
+
+				<br>
 
     <?php
 
@@ -53,52 +55,46 @@
 
     $tempo_resultado = $conn->query($sql_tempo);
 
-    if ($tempo_resultado->num_rows > 0) {
+    $row = $tempo_resultado->fetch_array();
 
-        echo "<thread>";
+    echo "<thread>";
+    echo "<tr>";
+
+    echo "<th colspan=\"2\">Last Update</th>";
+
+    $tempo = $row["tempo"];
+
+    echo "<th colspan=\"1\">" . $tempo . "</th>";
+
+    echo "</tr>";
+    echo "</thread>";
+
+    echo "<tbody>";
+
+    while ($table = $tabelaName_resultado->fetch_array()) {
+
         echo "<tr>";
 
-        echo "<th colspan=\"2\">Last Update</th>";
+        $sql = "SELECT  nome, informacao FROM " . $table[0] . " ORDER BY tempo DESC LIMIT 1";
 
-        $row = $tempo_resultado->fetch_assoc();
+        $result = $conn->query($sql);
 
-        $tempo = $row["tempo"];
+        if ($result->num_rows > 0) {
 
-        echo "<th colspan=\"1\">" . $tempo . "</th>";
+            $row = $result->fetch_assoc();
 
-        echo "</tr>";
-        echo "</thread>";
+            echo "<th colspan=\"2\">" . $row["nome"] . "</th>";
+            echo "<td colspan=\"1\">" . $row["informacao"] . "</td>";
 
-        echo "<tbody>";
-
-        while ($table = $tabelaName_resultado->fetch_array()) {
-
-            echo "<tr>";
-
-            $sql = "SELECT  nome, informacao FROM php." . $table[0] . " ORDER BY tempo DESC LIMIT 1";
-
-            $result = $conn->query($sql);
-
-            if ($result->num_rows > 0) {
-
-                $row = $result->fetch_assoc();
-
-                echo "<th colspan=\"2\">" . $row["nome"] . "</th>";
-                echo "<td colspan=\"1\">" . $row["informacao"] . "</td>";
-
-            } else {
-                echo "<th colspan=\"2\">" . $table[0] . "</th>";
-                echo "<td colspan=\"1\"> </td>";
-            }
-
-            echo "</tr>";
+        } else {
+            echo "<th colspan=\"2\">" . $table[0] . "</th>";
+            echo "<td colspan=\"1\"> </td>";
         }
 
-        echo "</tbody>";
-
-    } else {
-        echo '<th>Sem informações dos sensores.</th>';
+        echo "</tr>";
     }
+
+    echo "</tbody>";
 
     $conn->close();
 
