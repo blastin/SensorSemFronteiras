@@ -17,7 +17,7 @@
     $db_name = 'php'; //this is the database I created in PhpMyAdmin
 
     $sql_names = "SHOW TABLES LIKE 'S%'";
-    $sql_tempo = "SELECT tempo FROM Update ORDER BY tempo DESC LIMIT 1";
+    $sql_tempo = "SELECT tempo FROM TimeUpdate ORDER BY tempo DESC LIMIT 1";
 
     ?>
 

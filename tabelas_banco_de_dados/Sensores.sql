@@ -136,10 +136,10 @@ CREATE TABLE IF NOT EXISTS `SensorUmidadeSolo` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `Update`
+-- Estrutura para tabela `TimeUpdate`
 --
 
-CREATE TABLE IF NOT EXISTS `Update` (
+CREATE TABLE IF NOT EXISTS `TimeUpdate` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `void` smallint(2) NOT NULL,
   `tempo` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -164,7 +164,7 @@ CREATE DEFINER=`adminSFmAMTp`@`127.2.97.130` EVENT `temperatura_limpeza` ON SCHE
 
 CREATE DEFINER=`adminSFmAMTp`@`127.2.97.130` EVENT `umidade_do_ar_limpeza` ON SCHEDULE EVERY 10 MINUTE STARTS '2016-06-13 00:00:00' ON COMPLETION PRESERVE ENABLE COMMENT 'Limpa a tabela do sensor de umidade do ar a cada 10 minutos' DO truncate php.`SensorUmidadeAr`$$
 
-CREATE DEFINER=`adminSFmAMTp`@`127.2.97.130` EVENT `time_stamp_limpeza` ON SCHEDULE EVERY 10 MINUTE STARTS '2016-06-14 22:02:36' ON COMPLETION PRESERVE ENABLE COMMENT 'Limpa a tabela do sensor de time_stamp a cada 10 minutos' DO truncate php.`Update`$$
+CREATE DEFINER=`adminSFmAMTp`@`127.2.97.130` EVENT `time_stamp_limpeza` ON SCHEDULE EVERY 10 MINUTE STARTS '2016-06-14 22:02:36' ON COMPLETION PRESERVE ENABLE COMMENT 'Limpa a tabela do sensor de time_stamp a cada 10 minutos' DO truncate php.`TimeUpdate`$$
 
 DELIMITER ;
 

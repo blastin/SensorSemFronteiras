@@ -99,7 +99,7 @@ class KoalaInterpretador:
 
     def update_time(self):
 
-        tabelaupdatequery = "INSERT INTO Update (void) values(%d)" % (self.modular % 2)
+        tabelaupdatequery = "INSERT INTO TimeUpdate (void) values(%d)" % (self.modular % 2)
 
         self.cursor.execute(tabelaupdatequery)
         self.conexao.commit()
