@@ -9,7 +9,7 @@
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET GLOBAL time_zone = "-03:00";
-SET GLOBAL event_scheduler =  "ON"
+SET GLOBAL event_scheduler = "ON";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
