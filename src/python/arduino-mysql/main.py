@@ -153,7 +153,7 @@ class KoalaInterpretador:
                             envio de informações duplicadas. Isso diminui o custo de processamento e  gasto de
                             dados de internet para o banco de dados.
 
-                            (excelente medida para internet movéis roteadas)
+                            (excelente medida para internet com limites de dados)
 
                         """
 
